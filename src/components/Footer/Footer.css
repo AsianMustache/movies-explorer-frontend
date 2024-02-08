@@ -1,0 +1,64 @@
+.project-info1 {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-right: 70px;
+    padding-left: 70px;
+    margin-top: 84px;
+  }
+  .footer {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .yandex-praktikum-text {
+    flex: 0 0 auto;
+    font: 400 13px Inter;
+    color: rgba(255, 255, 255, 1);
+    white-space: pre-wrap;
+  }
+  .project-details3 {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .yandex-praktikum-github {
+    flex: 0 0 auto;
+    margin-left: 20px;
+    font: 400 13px Inter;
+    color: rgba(255, 255, 255, 1);
+    white-space: pre-wrap;
+  }
+
+  .project-description6 {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+  .project-description3 {
+    flex: 0 0 auto;
+    font: 400 13px Inter;
+    color: rgba(139, 139, 139, 1);
+    text-align: center;
+    white-space: pre-wrap;
+  }
+  .horizontal-divider {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 1140px;
+    height: 1px;
+    margin-top: 20px;
+    background: rgba(66, 66, 66, 1);
+  }
+  
+  

@@ -1,0 +1,28 @@
+.student-promo {
+    flex: 0 0 auto;
+    align-self: stretch;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+
+  .promo-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 160px;
+    padding-bottom: 30px;
+    background: rgba(39, 39, 39, 1);
+    border-radius: 10px;
+}
+
+  .promo-info__title {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    max-width: 730px;
+    font: 400 50px/58px Inter;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    letter-spacing: -2px;
+    white-space: pre-wrap;
+}

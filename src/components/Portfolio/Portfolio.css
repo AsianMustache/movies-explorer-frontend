@@ -1,0 +1,53 @@
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin-top: 100px;
+}
+
+.portfolio__heading {
+    font: 400 18px Inter;
+    color: rgba(139, 139, 139, 1);
+    white-space: pre-wrap;
+}
+
+.portfolio__projects {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin-top: 50px;
+}
+
+.portfolio__project {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.portfolio__project-title {
+    font: 400 30px Inter;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: -1.2px;
+    white-space: pre-wrap;
+}
+
+.portfolio__project-link {
+    font: 400 30px Inter;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: -1.2px;
+    white-space: pre-wrap;
+    text-decoration: none;
+}
+
+.portfolio__project-line {
+    box-sizing: border-box;
+    width: 100%;
+    height: 1px;
+    margin-top: 9px;
+    background: rgba(66, 66, 66, 1);
+}

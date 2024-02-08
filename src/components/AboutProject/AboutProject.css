@@ -1,0 +1,194 @@
+.about-project__details {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
+    justify-content: flex-start;
+    padding-right: 70px;
+    padding-left: 70px;
+    margin: 0 0 110px;
+}
+
+.about-project__description-header {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.about-project__header-title {
+    flex: 0 0 auto;
+    font: 400 22px Inter;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: -0.88px;
+    white-space: pre-wrap;
+    margin-top: 110px;
+}
+
+.about-project__line {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 1140px;
+    height: 1px;
+    margin-top: 23px;
+    background: rgba(218, 218, 218, 1);
+}
+
+.about-project__details-content {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+.about-project__details-block {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.about-project__details-text {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 50.44%;
+    font: 400 20px Inter;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: -0.8px;
+    white-space: pre-wrap;
+}
+
+.about-project__details-duration {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 49.56%;
+    padding-right: 15px;
+    padding-left: 15px;
+    font: 400 20px Inter;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: -0.8px;
+    white-space: pre-wrap;
+}
+
+.about-project__details-description {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 26px 0 110px;
+}
+
+.about-project__description-text {
+    box-sizing: border-box;
+    flex: 1 1 0;
+    max-width: 550px;
+    font: 400 14px/20px Inter;
+    color: rgba(255, 255, 255, 1);
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+.about-project__description-notes {
+    box-sizing: border-box;
+    flex: 1 1 0;
+    max-width: 550px;
+    margin-left: 40px;
+    font: 400 14px/20px Inter;
+    color: rgba(255, 255, 255, 1);
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+.about-project__timeline {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.about-project__flex-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 228px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.about-project__week-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    height: 36px;
+    padding-right: 14px;
+    padding-left: 14px;
+    background: rgba(61, 220, 132, 1);
+}
+
+.about-project__week-text {
+    flex: 0 0 auto;
+    font: 400 14px Inter;
+    color: rgba(0, 0, 0, 1);
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+.about-project__backend-title {
+    flex: 0 0 auto;
+    padding-right: 14px;
+    padding-left: 14px;
+    margin-top: 14px;
+    font: 500 14px Inter;
+    color: rgba(139, 139, 139, 1);
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+.about-project__flex-container-large {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 912px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.about-project__weeks-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    height: 36px;
+    padding-right: 356px;
+    padding-left: 356px;
+    background: rgba(48, 48, 48, 1);
+}
+
+.about-project__weeks-duration {
+    flex: 0 0 auto;
+    font: 400 14px Inter;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+.about-project__weeks-text {
+    flex: 0 0 auto;
+    margin-top: 14px;
+    font: 500 14px Inter;
+    color: rgba(139, 139, 139, 1);
+    text-align: center;
+    white-space: pre-wrap;
+}

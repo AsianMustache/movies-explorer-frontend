@@ -1,0 +1,96 @@
+.techs {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 90px;
+    align-items: center;
+    align-self: stretch;
+    justify-content: center;
+    padding: 100px 70px;
+    background: rgba(39, 39, 39, 1);
+  }
+  .techs__content {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    justify-content: flex-start;
+    padding-right: 270px;
+    padding-left: 270px;
+  }
+  .techs__subtitle {
+    flex: 0 0 auto;
+    align-self: stretch;
+    font: 400 50px Inter;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    letter-spacing: -2px;
+    white-space: pre-wrap;
+  }
+  .techs__buttons {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 10px;
+    align-items: stretch;
+    justify-content: center;
+    height: 60px;
+    margin-top: 10px;
+  }
+  .techs__button {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    width: 90px;
+    min-width: 90px;
+    height: 60px;
+    font: 400 14px Inter;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: -0.56px;
+    cursor: pointer;
+    background: rgba(48, 48, 48, 1);
+    border: none;
+    border-radius: 10px;
+  }
+  .techs__header {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
+    justify-content: flex-start;
+  }
+  .techs__header-title {
+    flex: 0 0 auto;
+    font: 400 22px Inter;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: -0.88px;
+    white-space: pre-wrap;
+  }
+  .techs__line {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 1140px;
+    height: 1px;
+    margin-top: 23px;
+    background: rgba(218, 218, 218, 1);
+  }
+  
+  .techs__description {
+    flex: 0 0 auto;
+    padding-right: 70px;
+    padding-left: 70px;
+    margin-top: 26px;
+  }
+  .techs__description-text {
+    box-sizing: border-box;
+    max-width: 460px;
+    font: 400 14px/20px Inter;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    letter-spacing: -0.56px;
+    white-space: pre-wrap;
+  }
+  

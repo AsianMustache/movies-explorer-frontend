@@ -1,0 +1,112 @@
+.header {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 70px 20px 70px;
+}
+
+.header__logo {
+  flex: 0 0 auto;
+}
+
+.header__logo-image {
+  box-sizing: border-box;
+  display: block;
+  width: 38px;
+  max-width: initial;
+  height: 39px;
+}
+
+.header__registration {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header__registration-title {
+  flex: 0 0 auto;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: "Inter";
+  color: #FFF;
+  white-space: pre-wrap;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.header__registration-button {
+  flex: 0 0 auto;
+  border: none;
+  border-radius: 3px;
+  font-weight: 400;
+  font-size: 12px;
+  font-family: "Inter";
+  background: #3DDC84;
+  box-sizing: border-box;
+  display: block;
+  width: 76px;
+  min-width: 76px;
+  height: 32px;
+  margin-left: 30px;
+  color: #000;
+  cursor: pointer;
+}
+
+.header__movie-nav {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 364px;
+    align-items: center;
+    justify-content: flex-start; 
+}
+
+.header__movie-links {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header__movie-link {
+  flex: 0 0 auto;
+  font: 500 13px Inter;
+  color: rgba(255, 255, 255, 1);
+  white-space: pre-wrap;
+  text-decoration: none;
+}
+
+.header__movie-link_saved {
+  flex: 0 0 auto;
+  margin-left: 16px;
+  font: 400 13px Inter;
+  color: rgba(255, 255, 255, 1);
+  white-space: pre-wrap;
+  text-decoration: none;
+}
+
+.header__profile-link {
+  text-decoration: none;
+}
+
+.header__profile-button {
+  box-sizing: border-box;
+  display: block;
+  flex: 0 0 auto;
+  width: 100px;
+  min-width: 100px;
+  height: 32px;
+  font: 500 14px Inter;
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  background: rgba(49, 49, 49, 1);
+  border: none;
+  border-radius: 20px;
+}
