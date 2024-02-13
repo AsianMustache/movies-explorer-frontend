@@ -32,6 +32,7 @@
     margin-left: 5px;
     background: transparent;
     border: none;
+    cursor: pointer;
 }
 
 .search-form__icon {
@@ -42,29 +43,40 @@
     height: 45px;
 }
 
-  .search-form__short-films {
+.search-form__short-films {
     display: flex;
     flex: 0 0 auto;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     margin-top: 29px;
-  }
+}
+
   .search-form__checkbox-container {
     flex: 0 0 auto;
-  }
+}
+
   .search-form__checkbox-icon {
     box-sizing: border-box;
     display: block;
     width: 34px;
     max-width: initial;
     height: 15px;
-  }
-  .search-form__label {
+}
+
+.search-form__label {
     flex: 0 0 auto;
     margin-left: 13px;
     font: 400 12px Inter;
     color: rgba(255, 255, 255, 1);
     white-space: pre-wrap;
-  }
-  
+}
+
+.search-form__line {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: 1140px;
+  height: 1px;
+  margin: 40px 70px 10px;
+  background: rgba(66, 66, 66, 1);
+}

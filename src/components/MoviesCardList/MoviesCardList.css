@@ -1,0 +1,27 @@
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));;
+    gap: 30px;
+    margin: 80px 70px 0;
+    row-gap: 60px;
+}
+
+.movies-list__more-button {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    width: 320px;
+    min-width: 320px;
+    height: 36px;
+    margin-top: 76px;
+    font: 500 12px Inter;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid rgba(66, 66, 66, 1);
+    border-radius: 6px;
+    margin: 78px 480px 80px;
+}
+
+
+

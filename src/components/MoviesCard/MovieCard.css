@@ -1,0 +1,72 @@
+.movies-list__container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    position: relative;
+}
+
+.movies-list__title {
+    flex: 0 0 auto;
+    font: 500 13px Inter;
+    color: rgba(255, 255, 255, 1);
+    white-space: pre-wrap;
+    margin-left: 14px;
+}
+
+.movies-list__title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.movies-list__duration-button {
+    box-sizing: border-box;
+    width: 52px;
+    min-width: 52px;
+    height: 18px;
+    margin-right: 14px;
+    font: 400 11px Inter;
+    color: rgba(139, 139, 139, 1);
+    background: rgba(47, 47, 47, 1);
+    border: none;
+    border-radius: 3px;
+    text-align: center;
+    padding: 3px 4px;
+}
+
+
+.movies-list__save-button {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    width: 72px;
+    min-width: 72px;
+    height: 21px;
+    font: 400 10px Inter;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    background: rgba(49, 49, 49, 1);
+    border: none;
+    border-radius: 30px;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
+.movies-list__save-button__active {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    width: 72px;
+    min-width: 72px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: transparent;
+}
+
+.movies-list__image-container {
+    flex: 0 0 auto;
+}
