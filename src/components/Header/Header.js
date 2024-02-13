@@ -8,7 +8,7 @@ function Header() {
   const location = useLocation();
 
 useEffect(() => {
-  setIsMoviesPage(location.pathname === "/movies");
+  setIsMoviesPage(location.pathname === "/movies" || "/saved-movies" || "/profile");
 }, [location]);
 
 return (

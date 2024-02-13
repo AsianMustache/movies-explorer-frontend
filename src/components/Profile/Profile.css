@@ -1,0 +1,84 @@
+.profile-card {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-right: 365px;
+    padding-left: 364px;
+    margin-top: 92px;
+  }
+  .greeting-heading {
+    flex: 0 0 auto;
+    font: 500 24px Inter;
+    color: rgba(255, 255, 255, 1);
+    white-space: pre-wrap;
+  }
+  .user-profile {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
+    justify-content: flex-start;
+    margin-top: 123px;
+  }
+  .personal-info-container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+  .info-card {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .name-text {
+    flex: 0 0 auto;
+    font: 500 11px Inter;
+    color: rgba(255, 255, 255, 1);
+    white-space: pre-wrap;
+  }
+  .name-paragraph {
+    flex: 0 0 auto;
+    font: 400 11px Inter;
+    color: rgba(255, 255, 255, 1);
+    white-space: pre-wrap;
+  }
+  .horizontal-divider {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 100%;
+    height: 2px;
+    background: rgba(66, 66, 66, 1);
+  }
+  .account-actions {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin-top: 220px;
+  }
+  .edit-button {
+    flex: 0 0 auto;
+    font: 400 13px Inter;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    white-space: pre-wrap;
+  }
+  .logout-button {
+    flex: 0 0 auto;
+    margin-top: 16px;
+    font: 500 13px Inter;
+    color: rgba(238, 52, 101, 1);
+    text-align: center;
+    white-space: pre-wrap;
+  }
+  

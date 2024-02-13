@@ -67,6 +67,20 @@
     background: transparent;
 }
 
+.movies-list__delete-button {
+    display: block;
+    width: 21px;
+    min-width: 21px;
+    height: 21px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 0;
+}
+
 .movies-list__image-container {
     flex: 0 0 auto;
 }

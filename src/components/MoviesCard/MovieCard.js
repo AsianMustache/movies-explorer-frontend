@@ -13,12 +13,17 @@ import waves from "../../images/waves.jpg";
 import favorite from "../../images/favorite.svg"
 import "../MoviesCard/MovieCard.css"
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import deleteButton from "../../images/delete.svg";
 
 function MovieCard() {
     const [isSaved, setIsSaved] = useState(true);
+    const location = useLocation();
+
     const handleSaveClick = () => {
         setIsSaved(!isSaved);
     }
+    const isSavedMoviesPage = location.pathname === "/saved-movies";
 
     return (
         <>
@@ -29,7 +34,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ yearsofdesign } alt="33 Words" />
@@ -38,9 +51,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                    {isSaved ? <img src={ favorite } alt="Избранное" /> : "Сохранить"}
-                </button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ banksy } alt="33 Words" />
@@ -49,7 +68,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ baskiya } alt="33 Words" />
@@ -58,7 +85,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ running } alt="33 Words" />
@@ -67,7 +102,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ booksellers } alt="33 Words" />
@@ -76,7 +119,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ germany } alt="33 Words" />
@@ -85,7 +136,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ gimme } alt="33 Words" />
@@ -94,7 +153,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ genis } alt="33 Words" />
@@ -103,7 +170,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ jump } alt="33 Words" />
@@ -112,7 +187,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ pj } alt="33 Words" />
@@ -121,7 +204,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
             <div className="movies-list__container">
                 <img className="movies-list__image-container" src={ waves } alt="33 Words" />
@@ -130,7 +221,15 @@ function MovieCard() {
                     <p className="movies-list__duration-button">1ч 17м</p>
                 </div>
 
-                <button className="movies-list__save-button">Сохранить</button>
+                {isSavedMoviesPage ? (
+                    <button className="movies-list__delete-button">
+                        <img src={ deleteButton } alt="Удаление карточки" />
+                    </button>
+                ) : (
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
+                    </button>
+                )}
             </div>
         </>
     )
