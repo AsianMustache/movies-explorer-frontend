@@ -176,10 +176,6 @@
     display: none;
   }
 
-  .header__registration {
-    display: none;
-  }
-
 }
 
 @media (max-width: 740px) {
@@ -189,5 +185,13 @@
 
   .header__registration-title {
     font-size: 10px;
+    padding: 0;
+  }
+
+  .header__registration-button {
+    font-size: 10px;
+    width: 54px;
+    height: 26px;
+    margin-left: 14px;
   }
 }

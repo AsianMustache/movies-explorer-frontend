@@ -29,6 +29,7 @@
     text-align: center;
     letter-spacing: -2px;
     white-space: pre-wrap;
+    margin: 0;
 }
 
 .techs__buttons {

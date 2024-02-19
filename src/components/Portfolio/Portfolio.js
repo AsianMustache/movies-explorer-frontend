@@ -2,7 +2,7 @@ import "../Portfolio/Portfolio.css"
 
 function Portfolio() {
     return (
-        <div className="portfolio">
+        <section className="portfolio">
           <h2 className="portfolio__heading">Портфолио</h2>
           <div className="portfolio__projects">
             <div className="portfolio__project">
@@ -18,7 +18,7 @@ function Portfolio() {
               <a href="https://github.com/AsianMustache/react-mesto-api-full-gha" target="_blank" rel="noopener noreferrer" className="portfolio__project-link">↗</a>
             </div>
           </div>
-        </div>
+        </section>
 
     )
   }

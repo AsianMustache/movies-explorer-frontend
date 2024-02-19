@@ -5,12 +5,12 @@ import Techs from "../Techs/Techs";
 
 function Main() {
     return (
-        <>
-        <Promo />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        </>
+        <section>
+            <Promo />
+            <AboutProject />
+            <Techs />
+            <AboutMe />
+        </section>
     )
 }
 

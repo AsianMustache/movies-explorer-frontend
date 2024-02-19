@@ -11,12 +11,12 @@ function FilterCheckbox() {
     };
 
     return (
-        <div className="filter-checkbox">
+        <section className="filter-checkbox">
             <button onClick={toggleButton} className={`filter-checkbox__button ${isActive ? "filter-checkbox__button_active" : ""}`}>
                 <img src={isActive ? tumblerOn : tumblerOff} alt={isActive ? "Включено" : "Выключено"} />
             </button>
             <p className="filter-checkbox__label">Короткометражки</p>
-        </div>
+        </section>
     );
 }
 

@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg"
 
 function Login() {
     return (
-        <div className="login">
+        <section className="login">
             <Link to="/">
                 <img src={logo} className="login__logo" alt="Logo" />
             </Link>
@@ -15,13 +15,13 @@ function Login() {
                         <label htmlFor="email" className="login__label-email">
                             E-mail
                         </label>
-                        <input id="email" placeholder="pochta@yandex.ru" type="email" className="login__input" />
+                        <input id="email" placeholder="pochta@yandex.ru" type="email" className="login__input" required />
                     </div>
                     <div className="login__field">
                         <label htmlFor="password" className="login__label-password">
                             Пароль
                         </label>
-                        <input id="password" placeholder="Пароль" type="password" className="login__input" />
+                        <input id="password" placeholder="Пароль" type="password" className="login__input" required />
                     </div>
                 </div>
                 <div className="login__action-container">
@@ -32,7 +32,7 @@ function Login() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

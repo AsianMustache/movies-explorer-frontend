@@ -2,7 +2,7 @@ import "../Profile/Profile.css"
 
 function Profile() {
     return (
-        <div className="profile-card">
+        <section className="profile-card">
             <p className="greeting-heading">Привет, Александр!</p>
             <div className="user-profile">
                 <div className="personal-info-container">
@@ -21,7 +21,7 @@ function Profile() {
                     <a href="#logout" className="logout-button">Выйти из аккаунта</a>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 

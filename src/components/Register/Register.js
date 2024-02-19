@@ -3,7 +3,7 @@ import logo from "../../images/logo.svg";
 
 function Register() {
     return (
-        <div className="register">
+        <section className="register">
             <div className="register__welcome">
                 <a href="/" className="register__logo-link">
                     <img src={logo} className="register__logo" alt="logo" />
@@ -16,19 +16,19 @@ function Register() {
                         <label htmlFor="name" className="register__label">
                             Имя
                         </label>
-                        <input id="name" placeholder="Александр" type="text" className="register__input" />
+                        <input id="name" placeholder="Александр" type="text" className="register__input" required />
                     </div>
                     <div className="register__field">
                         <label htmlFor="email" className="register__label">
                             E-mail
                         </label>
-                        <input id="email" placeholder="pochta@yandex.ru" type="email" className="register__input" />
+                        <input id="email" placeholder="pochta@yandex.ru" type="email" className="register__input" required />
                     </div>
                     <div className="register__field">
                         <label htmlFor="password" className="register__label">
                             Пароль
                         </label>
-                        <input id="password" placeholder="••••••••••••••" type="password" className="register__input" />
+                        <input id="password" placeholder="••••••••••••••" type="password" className="register__input" required />
                     </div>
                     <span className="register__error">Что-то пошло не так...</span>
                 </div>
@@ -40,7 +40,7 @@ function Register() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

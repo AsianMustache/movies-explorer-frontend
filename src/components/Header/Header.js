@@ -9,6 +9,7 @@ function Header() {
   const [isNavVisible, setIsNavVisible] = useState(false);
   const location = useLocation();
   const shouldRenderHeader = ["/", "/movies", "/saved-movies", "/profile"].includes(location.pathname);
+  const isHomePage = location.pathname === '/';
 
 useEffect(() => {
   setIsMoviesPage(location.pathname === "/movies" || location.pathname === "/saved-movies" || location.pathname === "/profile");
@@ -24,7 +25,7 @@ const toggleNav = () => {
   }
 
 return (
-  <div className="header">
+  <section className="header">
     <div className="header__logo">
       <Link to="/">
         <img src={logo} className="header__logo-image" alt="Logo" />
@@ -50,17 +51,20 @@ return (
             </Link>
             </div>
         )}
+          {!isHomePage && (
             <div className="header-mobile__burger" onClick={toggleNav}>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+          )}
             <div className={`main-navigation-container ${isNavVisible ? "is-visible" : ""}`}>
               {isNavVisible && <Navigation onClose={toggleNav} />}
             </div>
+        
           </>
         )}
-  </div>
+  </section>
 );
 }
 
