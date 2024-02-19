@@ -16,7 +16,13 @@
 
 .filter-checkbox__label {
     margin-left: 13px;
-    font: 400 12px Inter;
+    font: 400 12px Inter, Arial, sans-serif;
     color: rgba(255, 255, 255, 1);
     white-space: pre-wrap;
+}
+
+@media (max-width: 740px) {
+    .filter-checkbox {
+        margin: 47px 0 0;
+    }
 }
