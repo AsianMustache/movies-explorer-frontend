@@ -8,6 +8,6 @@ IP 158.160.134.185
 Frontend https://diplomafan.nomoredomainsmonster.ru
 Backend https://api.diplomafan.nomoredomainsmonster.ru
 
-## Theme
+## Макет
 
 Dark-2
