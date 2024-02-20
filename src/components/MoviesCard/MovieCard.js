@@ -27,7 +27,7 @@ function MovieCard() {
 
     return (
         <>
-            <div className="movies-list__container">
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ words } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">33 слова о дизайне</p>
@@ -43,8 +43,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ yearsofdesign } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Киноальманах «100 лет дизайна» </p>
@@ -60,8 +60,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ banksy } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">В погоне за Бенкси</p>
@@ -77,8 +77,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ baskiya } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Баския: Взрыв реальности</p>
@@ -94,8 +94,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ running } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Бег это свобода</p>
@@ -111,8 +111,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ booksellers } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Книготорговцы</p>
@@ -128,8 +128,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ germany } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Когда я думаю о Германии ночью</p>
@@ -145,8 +145,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ gimme } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Gimme Danger: История Игги и The Stooges</p>
@@ -162,8 +162,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ genis } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Дженис: Маленькая девочка грустит</p>
@@ -179,8 +179,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ jump } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Соберись перед прыжком</p>
@@ -196,8 +196,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ pj } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">Пи Джей Харви: A dog called money</p>
@@ -213,8 +213,8 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
-            <div className="movies-list__container">
+            </article>
+            <article className="movies-list__container">
                 <img className="movies-list__image-container" src={ waves } alt="33 Words" />
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">По волнам: Искусство звука в кино</p>
@@ -230,7 +230,7 @@ function MovieCard() {
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}
-            </div>
+            </article>
         </>
     )
 }

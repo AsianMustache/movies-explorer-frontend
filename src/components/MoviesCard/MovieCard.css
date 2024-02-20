@@ -87,6 +87,12 @@
     border-radius: 6px;
 }
 
+@media (max-width: 890px) {
+    .movies-list__container {
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 780px) {
     .movies-list__title-container {
         margin-top: 12px;
@@ -99,6 +105,7 @@
         box-sizing: border-box;
         max-width: 300px;
         width: 100%;
+        margin: 0 auto;
     }
 
     .movies-list__title {

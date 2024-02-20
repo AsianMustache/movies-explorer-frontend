@@ -4,7 +4,7 @@ function NotFound() {
     return (
         <div className="page-not-found">
         <div className="error-container">
-          <p className="page-not-found-title">404</p>
+          <h1 className="page-not-found-title">404</h1>
           <p className="error-message">Страница не найдена</p>
         </div>
         <a href="/" className="back-button">Назад</a>

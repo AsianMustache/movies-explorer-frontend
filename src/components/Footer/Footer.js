@@ -9,7 +9,7 @@ function Footer() {
     return null;
   }
     return (
-        <section className="footer">
+        <footer className="footer">
           <div className="footer__description">
             <p className="footer__text">Учебный проект Яндекс.Практикум х BeatFilm.</p>
           </div>
@@ -20,7 +20,7 @@ function Footer() {
               <a href="https://github.com/AsianMustache/" className="footer__link footer__link-github">Github</a>
             </div>
           </div>
-        </section>
+        </footer>
     );
   }
 export default Footer

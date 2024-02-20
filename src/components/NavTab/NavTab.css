@@ -13,7 +13,7 @@
     display: block;
     flex: 0 0 auto;
     width: 100%;
-    min-width: 96px;
+    max-width: 96px;
     height: 36px;
     font: 500 12px Inter, Arial, sans-serif;
     color: rgba(255, 255, 255, 1);
@@ -21,10 +21,9 @@
     background: rgba(48, 48, 48, 1);
     border: none;
     border-radius: 10px;
-}
-
-.nav-tab__button-link {
     text-decoration: none;
+    padding: 10px 0;
+    text-align: center;
 }
 
 @media (max-width: 780px) {

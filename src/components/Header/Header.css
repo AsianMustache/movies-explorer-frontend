@@ -39,6 +39,7 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .header__registration-button {
@@ -58,6 +59,7 @@
   color: #000;
   cursor: pointer;
   text-decoration: none;
+  padding: 8px 20px;
 }
 
 .header__link {
@@ -115,6 +117,9 @@
   background: rgba(49, 49, 49, 1);
   border: none;
   border-radius: 20px;
+  text-decoration: none;
+  padding: 8px 0;
+  text-align: center;
 }
 
 .header-mobile__burger {
@@ -193,5 +198,7 @@
     width: 54px;
     height: 26px;
     margin-left: 14px;
+    padding: 5px 12px;
+    min-width: 0;
   }
 }

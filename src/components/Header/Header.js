@@ -25,7 +25,7 @@ const toggleNav = () => {
   }
 
 return (
-  <section className="header">
+  <header className="header">
     <div className="header__logo">
       <Link to="/">
         <img src={logo} className="header__logo-image" alt="Logo" />
@@ -39,16 +39,16 @@ return (
               <Link to="/movies" className="header__movie-link">Фильмы</Link>
               <Link to="/saved-movies" className="header__movie-link_saved">Сохранённые фильмы</Link>
             </div>
-            <Link to="/profile" className="header__profile-link"><button className="header__profile-button">Аккаунт</button></Link>
+            <Link to="/profile" className="header__profile-button">Аккаунт</Link>
           </div>
         ) : (
             <div className="header__registration">
-            <Link to="/signup">
-              <button className="header__registration-title">Регистрация</button>
-            </Link>
-            <Link to="signin" className="header__link" >
-              <button className="header__registration-button">Войти</button>
-            </Link>
+            <a href="/signup" className="header__registration-title">
+              Регистрация
+            </a>
+            <a href="signin" className="header__registration-button" >
+              Войти
+            </a>
             </div>
         )}
           {!isHomePage && (
@@ -64,7 +64,7 @@ return (
         
           </>
         )}
-  </section>
+  </header>
 );
 }
 
