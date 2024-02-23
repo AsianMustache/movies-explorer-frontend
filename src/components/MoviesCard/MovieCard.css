@@ -1,0 +1,136 @@
+.movies-list__container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    position: relative;
+}
+
+.movies-list__title {
+    flex: 0 0 auto;
+    font: 500 13px Inter, Arial, sans-serif;
+    color: rgba(255, 255, 255, 1);
+    white-space: pre-wrap;
+    margin-left: 14px;
+}
+
+.movies-list__title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.movies-list__duration-button {
+    box-sizing: border-box;
+    width: 52px;
+    min-width: 52px;
+    height: 18px;
+    margin-right: 14px;
+    font: 400 11px Inter, Arial, sans-serif;
+    color: rgba(139, 139, 139, 1);
+    background: rgba(47, 47, 47, 1);
+    border: none;
+    border-radius: 3px;
+    text-align: center;
+    padding: 3px 4px;
+}
+
+
+.movies-list__save-button {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    width: 72px;
+    max-width: 72px;
+    height: 21px;
+    font: 400 10px Inter, Arial, sans-serif;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    background: rgba(49, 49, 49, 1);
+    border: none;
+    border-radius: 30px;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
+.movies-list__save-button__active {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 21px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: transparent;
+    padding: 0;
+}
+
+.movies-list__delete-button {
+    display: block;
+    width: 21px;
+    min-width: 21px;
+    height: 21px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 0;
+}
+
+.movies-list__image-container {
+    flex: 0 0 auto;
+    border-radius: 6px;
+}
+
+@media (max-width: 890px) {
+    .movies-list__container {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 780px) {
+    .movies-list__title-container {
+        margin-top: 12px;
+    }
+
+}
+
+@media (max-width: 740px) {
+    .movies-list__container {
+        box-sizing: border-box;
+        max-width: 300px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .movies-list__title {
+        font-size: 12px;
+        max-width: 240px;
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    .movies-list__duration-button {
+        font-size: 11px;
+        margin-right: 10px;
+        margin-right: 0px;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 690px) {
+    .movies-list__container {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 330px) {
+    .movies-list__container {
+        margin: 0;
+    }
+}
