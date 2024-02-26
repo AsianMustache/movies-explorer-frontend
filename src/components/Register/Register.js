@@ -8,6 +8,7 @@ function Register({ onRegister }) {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const [name, setName] = useState("");
+    const [isFormValid, setIsFormValid] = useState(false);
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const navigate = useNavigate();
@@ -29,30 +30,42 @@ function Register({ onRegister }) {
     const validateInput = () => {
         let emailError = "";
         let passwordError = "";
-    
+        let isValid = true;
+
         if (!email) {
             emailError = "E-mail не может быть пустым.";
+            isValid = false;
         } else if (!emailRegex.test(email)) {
             emailError = "E-mail должен быть действительным.";
+            isValid = false;
         }
     
         if (password.length < 6) {
             passwordError = "Пароль должен быть не менее 6 символов. ";
+            isValid = false;
         } 
     
         if (!/[A-Z]/.test(password)) {
             passwordError += "Пароль должен содержать минимум одну заглавную букву. ";
+            isValid = false;
         }
     
         if (!/\d/.test(password)) {
             passwordError += "Пароль должен содержать минимум одну цифру. ";
+            isValid = false;
         }
     
         if (!/[!@#$%^&*? ]/.test(password)) {
             passwordError += "Пароль должен содержать минимум один специальный символ. ";
+            isValid = false;
+        }
+    
+        if (!name) {
+            isValid = false;
         }
     
         setMessage(emailError + passwordError);
+        setIsFormValid(isValid);
     };
 
     const handleEmailChange = (e) => {
@@ -119,7 +132,7 @@ function Register({ onRegister }) {
                     <span className="register__error">{message}</span>
                 </div>
                 <div className="register__action">
-                    <button className="register__submit">Зарегистрироваться</button>
+                    <button className={`register__submit ${!isFormValid ? "register__submit_disabled" : ""}`} disabled={!isFormValid} >Зарегистрироваться</button>
                     <div className="register__options">
                         <p className="register__options-message">Уже зарегистрированы?</p>
                         <a href="/signin" className="register__link">Войти</a>
