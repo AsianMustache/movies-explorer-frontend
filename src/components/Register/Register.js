@@ -1,7 +1,71 @@
 import "../Register/Register.css";
 import logo from "../../images/logo.svg";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Register() {
+function Register({ onRegister }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [name, setName] = useState("");
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!email || !password || !name) {
+            return;
+        }
+        onRegister(email, password, name, setMessage).then(() => {
+            navigate("/signin");
+        })
+        .catch((error) => {
+            console.error("Ошибка при регистрации:", error);
+            setMessage(error.message || "Произошла ошибка при регистрации.");
+        });
+    }
+
+    const validateInput = () => {
+        let emailError = "";
+        let passwordError = "";
+    
+        if (!email) {
+            emailError = "E-mail не может быть пустым.";
+        } else if (!emailRegex.test(email)) {
+            emailError = "E-mail должен быть действительным.";
+        }
+    
+        if (password.length < 6) {
+            passwordError = "Пароль должен быть не менее 6 символов. ";
+        } 
+    
+        if (!/[A-Z]/.test(password)) {
+            passwordError += "Пароль должен содержать минимум одну заглавную букву. ";
+        }
+    
+        if (!/\d/.test(password)) {
+            passwordError += "Пароль должен содержать минимум одну цифру. ";
+        }
+    
+        if (!/[!@#$%^&*? ]/.test(password)) {
+            passwordError += "Пароль должен содержать минимум один специальный символ. ";
+        }
+    
+        setMessage(emailError + passwordError);
+    };
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+        validateInput();
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+        validateInput();
+    }
+    
+    
     return (
         <section className="register">
             <div className="register__welcome">
@@ -10,27 +74,49 @@ function Register() {
                 </a>
                 <p className="register__message">Добро пожаловать!</p>
             </div>
-            <div className="register__form">
+            <form className="register__form" onSubmit={handleSubmit}>
                 <div className="register__form-container">
                     <div className="register__field">
                         <label htmlFor="name" className="register__label">
                             Имя
                         </label>
-                        <input id="name" placeholder="Александр" type="text" className="register__input" required />
+                        <input 
+                            id="name" 
+                            placeholder="Имя" 
+                            onChange={(e) => setName(e.target.value)} 
+                            type="text" 
+                            className="register__input" 
+                            required />
                     </div>
                     <div className="register__field">
                         <label htmlFor="email" className="register__label">
                             E-mail
                         </label>
-                        <input id="email" placeholder="pochta@yandex.ru" type="email" className="register__input" required />
+                        <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={handleEmailChange}
+                            minLength="2"
+                            maxLength="40" className="register__input" required />
                     </div>
                     <div className="register__field">
                         <label htmlFor="password" className="register__label">
                             Пароль
                         </label>
-                        <input id="password" placeholder="••••••••••••••" type="password" className="register__input" required />
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Пароль"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            minLength="2"
+                            maxLength="200" className="register__input" required />
                     </div>
-                    <span className="register__error">Что-то пошло не так...</span>
+                    <span className="register__error">{message}</span>
                 </div>
                 <div className="register__action">
                     <button className="register__submit">Зарегистрироваться</button>
@@ -39,7 +125,7 @@ function Register() {
                         <a href="/signin" className="register__link">Войти</a>
                     </div>
                 </div>
-            </div>
+            </form>
         </section>
     )
 }
