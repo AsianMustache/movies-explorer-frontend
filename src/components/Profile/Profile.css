@@ -100,6 +100,18 @@
     cursor: pointer;
 }
 
+.save-button {
+    flex: 0 0 auto;
+    font: 400 13px Inter, Arial, sans-serif;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    white-space: pre-wrap;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 .logout-button {
     flex: 0 0 auto;
     margin-top: 16px;
