@@ -209,7 +209,7 @@ function Profile({ onSignOut }) {
                     </div>
                 </div>
                 <div className="account-actions">
-                    <a href="#edit" className="edit-button" onClick={handleEditClick} >Редактировать</a>
+                    <a href="#edit" className="save-button" onClick={handleEditClick} >Сохранить</a>
                     <a href="#logout" className="logout-button" onClick={onSignOut}>Выйти из аккаунта</a>
                 </div>
             </form>
@@ -218,19 +218,19 @@ function Profile({ onSignOut }) {
                 <div className="personal-info-container">
                     <div className="info-card-name">
                         <p className="name-text">Имя</p>
-                        <input className="name-paragraph" 
+                        <p className="name-paragraph" 
                             value={name} 
-                            onChange={(e) => setName(e.target.value)} >{currentUser.name}</input>
+                             >{currentUser.name}</p>
                     </div>
                     <div className="info-card-mail">
                         <p className="name-text">E-mail</p>
-                        <input className="name-paragraph"
+                        <p className="name-paragraph"
                             value={email} 
-                            onChange={(e) => setEmail(e.target.value)} >{currentUser.email}</input>
+                            >{currentUser.email}</p>
                     </div>
                 </div>
                 <div className="account-actions">
-                    <button type="submit" className="save-button">Сохранить</button>
+                    <button type="submit" className="edit-button">Редактировать</button>
                     <a href="#logout" className="logout-button" onClick={onSignOut}>Выйти из аккаунта</a>
                 </div>
             </form>
