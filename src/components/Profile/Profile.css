@@ -76,6 +76,7 @@
     white-space: pre-wrap;
     background: transparent;
     border: none;
+    text-align: end;
 }
 
 .account-actions {
