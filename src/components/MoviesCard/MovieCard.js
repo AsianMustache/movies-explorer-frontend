@@ -1,228 +1,61 @@
-import words from "../../images/33words.jpg";
-import yearsofdesign from "../../images/100yearsofdesign.jpg";
-import banksy from "../../images/Banksy.jpg";
-import baskiya from "../../images/Baskiya.jpg";
-import running from "../../images/running.jpg";
-import booksellers from "../../images/BookSellers.jpg";
-import germany from "../../images/Germany.jpg";
-import gimme from "../../images/GimmeDanger.jpg";
-import genis from "../../images/Genis.jpg";
-import jump from "../../images/Jump.jpg";
-import pj from "../../images/PJHarvey.jpg";
-import waves from "../../images/waves.jpg";
+
 import favorite from "../../images/favorite.svg"
 import "../MoviesCard/MovieCard.css"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import deleteButton from "../../images/delete.svg";
 
-function MovieCard() {
-    const [isSaved, setIsSaved] = useState(true);
+function MovieCard({ movie, onMovieDelete }) {
     const location = useLocation();
 
-    const handleSaveClick = () => {
-        setIsSaved(!isSaved);
-    }
+    const savedMovies = JSON.parse(localStorage.getItem("savedMovies") || "[]");
+    const isSavedMovie = savedMovies.some(savedMovie => savedMovie.id === movie.id);
+    const handleDeleteClick = () => {
+        onMovieDelete(movie);
+    };
+
+    // const handleSaveClick = () => {
+    //     if (isSavedMovie) {
+    //         const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.id !== movie.id);
+    //         localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+    //     } else {
+    //         const updatedSavedMovies = [...savedMovies, movie];
+    //         localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+    //     }
+    //     setIsSaved(!isSavedMovie);
+    // };
+    
+    useEffect(() => {
+        setIsSaved(isSavedMovie);
+    }, [isSavedMovie]);
+
+    const [isSaved, setIsSaved] = useState(isSavedMovie);
     const isSavedMoviesPage = location.pathname === "/saved-movies";
+
+    const duration = `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`;
+
+    const handleSaveClick = () => {
+        let updatedSavedMovies;
+        if (isSaved) {
+            updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.id !== movie.id);
+        } else {
+            updatedSavedMovies = [...savedMovies, movie];
+        }
+        localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+        setIsSaved(!isSaved);
+    };
 
     return (
         <>
             <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ words } alt="33 Words" />
+                <img className="movies-list__image-container" src={`https://api.nomoreparties.co${movie.image.url}`} alt={movie.nameRU} />
                 <div className="movies-list__title-container">
-                    <p className="movies-list__title">33 слова о дизайне</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
+                    <p className="movies-list__title">{movie.nameRU}</p>
+                    <p className="movies-list__duration-button">{duration}</p>
                 </div>
 
                 {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ yearsofdesign } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Киноальманах «100 лет дизайна» </p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ banksy } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">В погоне за Бенкси</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ baskiya } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Баския: Взрыв реальности</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ running } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Бег это свобода</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ booksellers } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Книготорговцы</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ germany } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Когда я думаю о Германии ночью</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ gimme } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Gimme Danger: История Игги и The Stooges</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ genis } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Дженис: Маленькая девочка грустит</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ jump } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Соберись перед прыжком</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ pj } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">Пи Джей Харви: A dog called money</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
-                        <img src={ deleteButton } alt="Удаление карточки" />
-                    </button>
-                ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
-                        {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
-                    </button>
-                )}
-            </article>
-            <article className="movies-list__container">
-                <img className="movies-list__image-container" src={ waves } alt="33 Words" />
-                <div className="movies-list__title-container">
-                    <p className="movies-list__title">По волнам: Искусство звука в кино</p>
-                    <p className="movies-list__duration-button">1ч 17м</p>
-                </div>
-
-                {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button">
+                    <button className="movies-list__delete-button" onClick={handleDeleteClick} >
                         <img src={ deleteButton } alt="Удаление карточки" />
                     </button>
                 ) : (

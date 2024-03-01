@@ -11,6 +11,7 @@
     color: rgba(255, 255, 255, 1);
     white-space: pre-wrap;
     margin-left: 14px;
+    max-width: 360px;
 }
 
 .movies-list__title-container {

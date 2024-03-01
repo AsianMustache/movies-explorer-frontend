@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import "../FilterCheckbox/FilterCheckbox.css";
 import tumblerOn from "../../images/tumbler-on.svg"
 import tumblerOff from "../../images/tumbler-off.svg"
 
-function FilterCheckbox() {
-    const [isActive, setIsActive] = useState(true);
+function FilterCheckbox({ isActive, toggleButton }) {
+    // const [isActive, setIsActive] = useState(true);
 
-    const toggleButton = () => {
-      setIsActive(!isActive);
-    };
+    // const toggleButton = () => {
+    //   setIsActive(!isActive);
+    // };
 
     return (
         <section className="filter-checkbox">

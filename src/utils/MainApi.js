@@ -22,15 +22,37 @@ class MainApi {
       });
     }
   
+    // editApiProfile(name, email) {
+    //   return this._sendRequest(`${this._url}/profile`, {
+    //     method: "PATCH",
+    //     credentials: "include",
+    //     headers: this._headers,
+    //     body: JSON.stringify({
+    //       name: name,
+    //       email: email,
+    //     }),
+    //   });
+    // }
     editApiProfile(name, email) {
-      return this._sendRequest(`${this._url}/profile`, {
+      return fetch(`${this._url}/profile`, {
         method: "PATCH",
         credentials: "include",
-        headers: this._headers,
+        headers: {
+          ...this._headers,
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           name: name,
           email: email,
         }),
+      }).then((response) => {
+        if (response.ok) {
+          return response.json(); // Возвращает обновленные данные пользователя
+        }
+        // Если сервер возвращает ошибку, преобразовываем ответ в JSON и далее генерируем ошибку
+        return response.json().then((json) => {
+          throw new Error(json.message || "Ошибка при обновлении профиля");
+        });
       });
     }
 
@@ -94,6 +116,24 @@ class MainApi {
         });
       });
     };
+
+    changeLikeStatus(cardId, isLiked) {
+      const method = isLiked ? "PUT" : "DELETE";
+      const url = `${this._url}/movies/${cardId}/likes`;
+  
+      return fetch(url, {
+        method: method,
+        credentials: "include",
+        headers: this._headers,
+      }).then((response) => {
+        if (!response.ok) {
+          return response.json().then((err) => {
+            throw err;
+          });
+        }
+        return response.json();
+      });
+    }
 }
 
 const api = new MainApi({
