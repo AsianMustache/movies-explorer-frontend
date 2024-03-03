@@ -14,12 +14,15 @@ import api from "../../utils/MainApi";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoutes/ProtectedRoute';
 import { getToken, removeToken } from "../../utils/token";
+import moviesApi from '../../utils/MoviesApi';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [tokenState, setTokenState] = useState(() => getToken());
+  const [isCheckingToken, setIsCheckingToken] = useState(true);
 
   const setToken = (newToken) => {
     localStorage.setItem("token", newToken);
@@ -28,20 +31,34 @@ function App() {
 
   useEffect(() => {
     if (tokenState) {
+      setIsCheckingToken(true);
       api.checkToken(tokenState)
         .then((userData) => {
           setCurrentUser(userData);
           setLoggedIn(true);
+          if (!localStorage.getItem('allMovies')) {
+            moviesApi.getAllMovies()
+              .then((movies) => {
+                localStorage.setItem('allMovies', JSON.stringify(movies));
+              })
+              .catch((err) => console.error('Ошибка при загрузке фильмов:', err));
+          }
         })
         .catch((err) => {
           console.error(err);
           removeToken();
+          navigate("/signin");
+        })
+        .finally(() => {
+          setIsCheckingToken(false);
         });
     } else {
+      setIsCheckingToken(false);
       setLoggedIn(false);
-      setCurrentUser({ name: "", email:"" });
+      setCurrentUser({ name: "", email: "" });
+      navigate("/signin");
     }
-  }, [tokenState]);
+  }, [tokenState, navigate]);
 
   const handleRegister = (email, password, name, setMessage) => {
   return api
@@ -78,22 +95,27 @@ function App() {
 
   const handleSignOut = () => {
     removeToken();
-    localStorage.removeItem("loggedIn");
+    localStorage.clear();
     setLoggedIn(false);
     setCurrentUser({});
     setTokenState(null);
     navigate("/signin");
   };
-
-  function handleUpdateUser({ name, email }) {
-    api
-      .editApiProfile(name, email)
+  
+  function handleUpdateUser(userData) {
+    return api.editApiProfile(userData.name, userData.email)
       .then((updatedUser) => {
         setCurrentUser(updatedUser);
+        return updatedUser;
       })
       .catch((err) => {
-        console.log("Ошибка:", err);
+        console.error("Ошибка:", err);
+        throw err;
       });
+  }
+
+  if (isCheckingToken) {
+    return <Preloader />
   }
 
   return (

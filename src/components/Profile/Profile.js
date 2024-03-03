@@ -1,5 +1,5 @@
 import "../Profile/Profile.css"
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
@@ -8,22 +8,24 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
     const [email, setEmail] = useState(currentUser.email);
     const [isDataEdited, setIsDataEdited] = useState(false);
 
-    const handleEditClick = () => {
-        setIsDataEdited(!isDataEdited);
+    const handleEditClick = (e) => {
+        e.preventDefault()
+        setIsDataEdited(true);
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        onUpdateUser(name, email)
+        onUpdateUser({name, email})
             .then((updatedUser) => {
                 setCurrentUser(updatedUser);
+                setIsDataEdited(false);
             })
             .catch((err) => console.error("Ошибка при обновлении профиля:", err));
     };
 
-    const handleSignOutClick = (e) => {
-        e.preventDefault();
-        onSignOut();
-    };
+    useEffect(() => {
+        setName(currentUser.name);
+        setEmail(currentUser.email);
+    }, [currentUser]);
 
     return (
         <section className="profile-card">
@@ -34,19 +36,23 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
                     <div className="info-card-name">
                         <p className="name-text">Имя</p>
                         <input className="name-paragraph" 
-                            value={currentUser.name} 
-                            onChange={(e) => setName(e.target.value)} >{currentUser.name}</input>
+                            value={name} 
+                            onChange={(e) => setName(e.target.value)} 
+                            disabled={!isDataEdited}
+                            />
                     </div>
                     <div className="info-card-mail">
                         <p className="name-text">E-mail</p>
                         <input className="name-paragraph"
-                            value={currentUser.email} 
-                            onChange={(e) => setEmail(e.target.value)} >{currentUser.email}</input>
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
+                            disabled={!isDataEdited}
+                            />
                     </div>
                 </div>
                 <div className="account-actions">
-                    <a href="#edit" className="save-button" type="submit" onClick={handleEditClick}>Сохранить</a>
-                    <button className="logout-button" onClick={handleSignOutClick}>Выйти из аккаунта</button>
+                    <button className="save-button" type="submit" >Сохранить</button>
+                    <button className="logout-button" onClick={onSignOut}>Выйти из аккаунта</button>
                 </div>
             </form>
             ) : (
@@ -55,19 +61,21 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
                     <div className="info-card-name">
                         <p className="name-text">Имя</p>
                         <p className="name-paragraph" 
-                            value={name} 
+                            value={name}
+                            disabled={!isDataEdited}
                              >{currentUser.name}</p>
                     </div>
                     <div className="info-card-mail">
                         <p className="name-text">E-mail</p>
                         <p className="name-paragraph"
-                            value={email} 
+                            value={email}
+                            disabled={!isDataEdited}
                             >{currentUser.email}</p>
                     </div>
                 </div>
                 <div className="account-actions">
                     <button type="submit" className="edit-button" onClick={handleEditClick} >Редактировать</button>
-                    <button className="logout-button" onClick={handleSignOutClick}>Выйти из аккаунта</button>
+                    <button className="logout-button" onClick={onSignOut}>Выйти из аккаунта</button>
                 </div>
             </form>
             )}

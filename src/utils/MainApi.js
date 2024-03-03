@@ -13,14 +13,7 @@ class MainApi {
         throw new Error("Error");
       });
     }
-  
-    // getApiUserInfo() {
-    //   return this._sendRequest(`${this._url}/profile`, {
-    //     method: "GET",
-    //     credentials: "include",
-    //     headers: this._headers,
-    //   });
-    // }
+
     setUserInfo(name, email, token) {
       return fetch(`${this._url}/users/me`, {
         method: "PATCH",
@@ -34,7 +27,6 @@ class MainApi {
         }),
       }).then((response) => {
         if(!response.ok) {
-          // Если сервер вернул ошибку, преобразуем тело ответа в JSON для получения деталей ошибки
           return response.json().then((json) => {
             throw new Error(json.message || `Ошибка: ${response.status}`);
           });
@@ -60,7 +52,7 @@ class MainApi {
   }
 
     editApiProfile(name, email) {
-      return this._sendRequest(`${this._url}/profile`, {
+      return this._sendRequest(`${this._url}/users/me`, {
         method: "PATCH",
         credentials: "include",
         headers: this._headers,
