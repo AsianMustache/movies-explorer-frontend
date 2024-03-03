@@ -11,15 +11,6 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
     const handleEditClick = () => {
         setIsDataEdited(!isDataEdited);
     };
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     onUpdateUser(name, email)
-    //         .then(() => {
-    //             setIsDataEdited(false);
-    //         })
-    //         .catch((err) => console.error("Ошибка при обновлении профиля:", err));
-    // };
     const handleSubmit = (e) => {
         e.preventDefault();
         onUpdateUser(name, email)
@@ -29,6 +20,10 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
             .catch((err) => console.error("Ошибка при обновлении профиля:", err));
     };
 
+    const handleSignOutClick = (e) => {
+        e.preventDefault();
+        onSignOut();
+    };
 
     return (
         <section className="profile-card">
@@ -51,7 +46,7 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
                 </div>
                 <div className="account-actions">
                     <a href="#edit" className="save-button" type="submit" onClick={handleEditClick}>Сохранить</a>
-                    <a href="#logout" className="logout-button" onClick={onSignOut}>Выйти из аккаунта</a>
+                    <button className="logout-button" onClick={handleSignOutClick}>Выйти из аккаунта</button>
                 </div>
             </form>
             ) : (
@@ -72,7 +67,7 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
                 </div>
                 <div className="account-actions">
                     <button type="submit" className="edit-button" onClick={handleEditClick} >Редактировать</button>
-                    <a href="#logout" className="logout-button" onClick={onSignOut}>Выйти из аккаунта</a>
+                    <button className="logout-button" onClick={handleSignOutClick}>Выйти из аккаунта</button>
                 </div>
             </form>
             )}

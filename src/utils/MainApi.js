@@ -14,14 +14,51 @@ class MainApi {
       });
     }
   
-    getApiUserInfo() {
-      return this._sendRequest(`${this._url}/profile`, {
-        method: "GET",
-        credentials: "include",
-        headers: this._headers,
+    // getApiUserInfo() {
+    //   return this._sendRequest(`${this._url}/profile`, {
+    //     method: "GET",
+    //     credentials: "include",
+    //     headers: this._headers,
+    //   });
+    // }
+    setUserInfo(name, email, token) {
+      return fetch(`${this._url}/users/me`, {
+        method: "PATCH",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+        }),
+      }).then((response) => {
+        if(!response.ok) {
+          // Если сервер вернул ошибку, преобразуем тело ответа в JSON для получения деталей ошибки
+          return response.json().then((json) => {
+            throw new Error(json.message || `Ошибка: ${response.status}`);
+          });
+        };
+      return response.json();
       });
     }
   
+    getUserInfo(token) {
+      console.log(`Отправка запроса с токеном: ${token}`);
+      return fetch(`${this._url}/users/me`, {
+          method: "GET",
+          headers: {
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json",
+          },
+      }).then((response) => {
+          if (!response.ok) {
+              throw new Error("Не удалось получить данные пользователя");
+          }
+          return response.json();
+      });
+  }
+
     editApiProfile(name, email) {
       return this._sendRequest(`${this._url}/profile`, {
         method: "PATCH",
@@ -78,7 +115,7 @@ class MainApi {
     };
 
     checkToken(token) {
-      return fetch(`${this._url}/movies`, {
+      return fetch(`${this._url}/users/me`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -95,23 +132,7 @@ class MainApi {
       });
     };
 
-    changeLikeStatus(cardId, isLiked) {
-      const method = isLiked ? "PUT" : "DELETE";
-      const url = `${this._url}/movies/${cardId}/likes`;
-  
-      return fetch(url, {
-        method: method,
-        credentials: "include",
-        headers: this._headers,
-      }).then((response) => {
-        if (!response.ok) {
-          return response.json().then((err) => {
-            throw err;
-          });
-        }
-        return response.json();
-      });
-    }
+
 }
 
 const api = new MainApi({

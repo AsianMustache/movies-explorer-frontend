@@ -4,6 +4,7 @@ import "../MoviesCard/MovieCard.css"
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import deleteButton from "../../images/delete.svg";
+import moviesApi from "../../utils/MoviesApi";
 
 function MovieCard({ movie, onMovieDelete }) {
     const location = useLocation();
@@ -34,15 +35,35 @@ function MovieCard({ movie, onMovieDelete }) {
 
     const duration = `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`;
 
+    // const handleSaveClick = () => {
+    //     let updatedSavedMovies;
+    //     if (isSaved) {
+    //         updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.id !== movie.id);
+    //     } else {
+    //         updatedSavedMovies = [...savedMovies, movie];
+    //     }
+    //     localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+    //     setIsSaved(!isSaved);
+    // };
+
     const handleSaveClick = () => {
-        let updatedSavedMovies;
         if (isSaved) {
-            updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.id !== movie.id);
+            moviesApi.changeLikeStatus(movie.id, false)
+                .then(() => {
+                    const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.id !== movie.id);
+                    localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+                    setIsSaved(false);
+                })
+                .catch(err => console.error("Ошибка при удалении фильма из избранного:", err));
         } else {
-            updatedSavedMovies = [...savedMovies, movie];
+            moviesApi.changeLikeStatus(movie.id, true)
+                .then(() => {
+                    const updatedSavedMovies = [...savedMovies, movie];
+                    localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+                    setIsSaved(true);
+                })
+                .catch(err => console.error("Ошибка при добавлении фильма в избранное:", err));
         }
-        localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
-        setIsSaved(!isSaved);
     };
 
     return (

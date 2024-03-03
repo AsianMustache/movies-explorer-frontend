@@ -13,35 +13,35 @@ import NotFound from '../404/404';
 import api from "../../utils/MainApi";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoutes/ProtectedRoute';
-import { setToken, getToken, removeToken } from "../../utils/token";
-import Preloader from '../Preloader/Preloader';
+import { getToken, removeToken } from "../../utils/token";
 
 function App() {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
+  const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
+  const [tokenState, setTokenState] = useState(() => getToken());
+
+  const setToken = (newToken) => {
+    localStorage.setItem("token", newToken);
+    setTokenState(newToken);
+  }
 
   useEffect(() => {
-    const token = getToken();
-    if (token) {
-        api.checkToken(token)
-            .then((userData) => {
-                setCurrentUser(userData);
-                setLoggedIn(true);
-            })
-            .catch((err) => {
-                console.error(err);
-                removeToken();
-            })
-            .finally(() => {
-                setIsAuthChecking(false);
-            });
+    if (tokenState) {
+      api.checkToken(tokenState)
+        .then((userData) => {
+          setCurrentUser(userData);
+          setLoggedIn(true);
+        })
+        .catch((err) => {
+          console.error(err);
+          removeToken();
+        });
     } else {
-        setIsAuthChecking(false);
+      setLoggedIn(false);
+      setCurrentUser({ name: "", email:"" });
     }
-  }, [navigate]);
-
+  }, [tokenState]);
 
   const handleRegister = (email, password, name, setMessage) => {
   return api
@@ -66,9 +66,9 @@ function App() {
       const data = await api.authorize(email, password);
       if (data.token) {
         setToken(data.token);
+        localStorage.setItem("loggedIn", true);
+        setCurrentUser(data);
         setLoggedIn(true);
-        setCurrentUser({ ...currentUser, email: email });
-        localStorage.setItem("loggedIn", true); 
         navigate("/movies");
       }
     } catch (err) {
@@ -80,13 +80,10 @@ function App() {
     removeToken();
     localStorage.removeItem("loggedIn");
     setLoggedIn(false);
-    setCurrentUser({ name: '', email: '' });
+    setCurrentUser({});
+    setTokenState(null);
     navigate("/signin");
   };
-
-  if (isAuthChecking) {
-    return <Preloader />;
-  }
 
   function handleUpdateUser({ name, email }) {
     api
