@@ -128,7 +128,7 @@ class MainApi {
 }
 
 const api = new MainApi({
-    url: "http://api.diplomafan.nomoredomainsmonster.ru/",
+    url: "https://api.diplomafan.nomoredomainsmonster.ru/",
     headers: {
       "Content-Type": "application/json",
     },
