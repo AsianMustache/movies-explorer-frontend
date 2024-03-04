@@ -128,7 +128,7 @@ class MainApi {
 }
 
 const api = new MainApi({
-    url: "http://localhost:3000",
+    url: "http://api.diplomafan.nomoredomainsmonster.ru/",
     headers: {
       "Content-Type": "application/json",
     },
