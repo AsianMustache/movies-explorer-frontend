@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -19,6 +19,7 @@ import Preloader from '../Preloader/Preloader';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [tokenState, setTokenState] = useState(() => getToken());
@@ -30,6 +31,9 @@ function App() {
   }
 
   useEffect(() => {
+	
+	const publicPaths = ['/', '/signin', '/signup'];
+	  
     if (tokenState) {
       setIsCheckingToken(true);
       api.checkToken(tokenState)
@@ -47,7 +51,10 @@ function App() {
         .catch((err) => {
           console.error(err);
           removeToken();
+          if (!publicPaths.includes(location.pathname)) {
+          console.log("Ошибка проверки токена, редирект на /signin");
           navigate("/signin");
+        }
         })
         .finally(() => {
           setIsCheckingToken(false);
@@ -56,9 +63,12 @@ function App() {
       setIsCheckingToken(false);
       setLoggedIn(false);
       setCurrentUser({ name: "", email: "" });
-      navigate("/signin");
+	  if (!publicPaths.includes(location.pathname)) {
+        console.log("Токен не найден, редирект на /signin");
+        navigate("/signin");
+      }
     }
-  }, [tokenState, navigate]);
+  }, [tokenState, navigate, location.pathname]);
 
   const handleRegister = (email, password, name, setMessage) => {
   return api
