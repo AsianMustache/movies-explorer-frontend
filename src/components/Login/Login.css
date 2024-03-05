@@ -98,6 +98,12 @@
     border-radius: 3px;
 }
 
+.login__submit-button_disabled {
+    background: #F8F8F8;
+    color: #C2C2C2;
+    cursor: not-allowed;
+}
+
 .login__registration-prompt {
     display: flex;
     flex: 0 0 auto;
@@ -123,6 +129,14 @@
     color: rgba(66, 133, 244, 1);
     white-space: pre-wrap;
     text-decoration: none;
+}
+
+.login__error {
+    flex: 0 0 auto;
+    margin-top: -10px;
+    font: 400 10px Inter, Arial, sans-serif;
+    color: rgba(238, 52, 101, 1);
+    white-space: pre-wrap;
 }
 
 @media (max-width: 780px) {

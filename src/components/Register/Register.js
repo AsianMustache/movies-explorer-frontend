@@ -6,79 +6,90 @@ import { useNavigate } from "react-router-dom";
 function Register({ onRegister }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
     const [name, setName] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [nameError, setNameError] = useState("");
 
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!email || !password || !name) {
+        validateInput();
+        if (emailError || passwordError || nameError || !email || !password || !name) {
             return;
         }
-        onRegister(email, password, name, setMessage).then(() => {
-            navigate("/signin");
+        onRegister(email, password, name).then(() => {
+            navigate("/movies");
         })
         .catch((error) => {
             console.error("Ошибка при регистрации:", error);
-            setMessage(error.message || "Произошла ошибка при регистрации.");
         });
     }
 
     const validateInput = () => {
-        let emailError = "";
-        let passwordError = "";
+        setEmailError(''); 
+        setPasswordError('');
+        setNameError('');
         let isValid = true;
 
         if (!email) {
-            emailError = "E-mail не может быть пустым.";
+            setEmailError("E-mail не может быть пустым.");
             isValid = false;
         } else if (!emailRegex.test(email)) {
-            emailError = "E-mail должен быть действительным.";
+            setEmailError("E-mail должен быть действительным.");
             isValid = false;
         }
-    
-        if (password.length < 6) {
-            passwordError = "Пароль должен быть не менее 6 символов. ";
+
+        if (!password) {
+            setPasswordError("Пароль не может быть пустым.");
             isValid = false;
-        } 
-    
-        if (!/[A-Z]/.test(password)) {
-            passwordError += "Пароль должен содержать минимум одну заглавную букву. ";
+        } else if (password.length < 6) {
+            setPasswordError("Пароль должен быть не менее 6 символов.");
             isValid = false;
-        }
-    
-        if (!/\d/.test(password)) {
-            passwordError += "Пароль должен содержать минимум одну цифру. ";
+        } else if (!/[A-Z]/.test(password) || !/\d/.test(password) || !/[!@#$%^&*? ]/.test(password)) {
+            setPasswordError("Пароль должен содержать минимум одну заглавную букву, одну цифру и один специальный символ.");
             isValid = false;
         }
-    
-        if (!/[!@#$%^&*? ]/.test(password)) {
-            passwordError += "Пароль должен содержать минимум один специальный символ. ";
-            isValid = false;
-        }
-    
+
         if (!name) {
+            setNameError("Имя не может быть пустым.");
             isValid = false;
         }
-    
-        setMessage(emailError + passwordError);
+
         setIsFormValid(isValid);
     };
 
     const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-        validateInput();
-    }
+        const inputValue = e.target.value;
+        setEmail(inputValue);
+    
+        if (emailRegex.test(inputValue)) {
+            setEmailError("");
+        } else {
+            setEmailError("E-mail должен быть действительным.");
+        }
+    };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
         validateInput();
     }
+
+    const handleNameChange = (e) => {
+        const inputValue = e.target.value.trim();
+        setName(e.target.value);
     
-    
+        if (!inputValue) {
+            setNameError("Имя не может быть пустым или состоять только из пробелов");
+        } else {
+            setNameError("");
+        }
+    }
+
     return (
         <section className="register">
             <div className="register__welcome">
@@ -96,10 +107,12 @@ function Register({ onRegister }) {
                         <input 
                             id="name" 
                             placeholder="Имя" 
-                            onChange={(e) => setName(e.target.value)} 
+                            onChange={handleNameChange} 
                             type="text" 
                             className="register__input" 
-                            required />
+                            required
+                            />
+                            {nameError && <span className="register__error">{nameError}</span>}
                     </div>
                     <div className="register__field">
                         <label htmlFor="email" className="register__label">
@@ -114,6 +127,7 @@ function Register({ onRegister }) {
                             onChange={handleEmailChange}
                             minLength="2"
                             maxLength="40" className="register__input" required />
+                            {emailError && <span className="register__error">{emailError}</span>}
                     </div>
                     <div className="register__field">
                         <label htmlFor="password" className="register__label">
@@ -128,8 +142,8 @@ function Register({ onRegister }) {
                             onChange={handlePasswordChange}
                             minLength="2"
                             maxLength="200" className="register__input" required />
+                            {passwordError && <span className="register__error">{passwordError}</span>}
                     </div>
-                    <span className="register__error">{message}</span>
                 </div>
                 <div className="register__action">
                     <button className={`register__submit ${!isFormValid ? "register__submit_disabled" : ""}`} disabled={!isFormValid} >Зарегистрироваться</button>

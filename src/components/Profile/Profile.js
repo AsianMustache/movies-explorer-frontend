@@ -7,19 +7,30 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
     const [name, setName] = useState(currentUser.name);
     const [email, setEmail] = useState(currentUser.email);
     const [isDataEdited, setIsDataEdited] = useState(false);
+    const [successMessage, setSuccessMessage] = useState("");
+
+    const isDataChanged = name !== currentUser.name || email !== currentUser.email;
 
     const handleEditClick = (e) => {
         e.preventDefault()
         setIsDataEdited(true);
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        onUpdateUser({name, email})
+        if (!isDataChanged) return;
+
+        onUpdateUser({ name, email })
             .then((updatedUser) => {
                 setCurrentUser(updatedUser);
                 setIsDataEdited(false);
+                setSuccessMessage("Профиль успешно обновлён!");
+                setTimeout(() => setSuccessMessage(""), 5000);
             })
-            .catch((err) => console.error("Ошибка при обновлении профиля:", err));
+            .catch((err) => {
+                console.error("Ошибка при обновлении профиля:", err);
+                setSuccessMessage("Ошибка при обновлении профиля.");
+            });
     };
 
     useEffect(() => {
@@ -27,9 +38,16 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
         setEmail(currentUser.email);
     }, [currentUser]);
 
+    const handleCancelEdit = () => {
+        setIsDataEdited(false);
+        setName(currentUser.name);
+        setEmail(currentUser.email);
+    }
+
     return (
         <section className="profile-card">
             <h1 className="greeting-heading">Привет, {currentUser.name}!</h1>
+            {successMessage && <p className="profile-update-message">{successMessage}</p>}
             {isDataEdited ? (
             <form className="user-profile" onSubmit={handleSubmit} >
                 <div className="personal-info-container">
@@ -51,7 +69,7 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
                     </div>
                 </div>
                 <div className="account-actions">
-                    <button className="save-button" type="submit" >Сохранить</button>
+                   {isDataChanged ? (<button className="save-button" type="submit" >Сохранить</button>) : (<button type="button" className="cancel-button" onClick={handleCancelEdit}>Закрыть</button>)}
                     <button className="logout-button" onClick={onSignOut}>Выйти из аккаунта</button>
                 </div>
             </form>

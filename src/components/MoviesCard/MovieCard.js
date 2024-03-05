@@ -37,7 +37,9 @@ function MovieCard({ movie, onMovieDelete }) {
     return (
         <>
             <article className="movies-list__container">
+            <a href={movie.trailerLink} target="_blank" rel="noopener noreferrer">
                 <img className="movies-list__image-container" src={`https://api.nomoreparties.co${movie.image.url}`} alt={movie.nameRU} />
+            </a>
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">{movie.nameRU}</p>
                     <p className="movies-list__duration-button">{duration}</p>

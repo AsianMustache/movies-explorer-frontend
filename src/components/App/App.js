@@ -30,62 +30,103 @@ function App() {
     setTokenState(newToken);
   }
 
-  useEffect(() => {
+  // useEffect(() => {
 	
-	const publicPaths = ['/', '/signin', '/signup'];
+	// const publicPaths = ['/', '/signin', '/signup'];
 	  
-    if (tokenState) {
-      setIsCheckingToken(true);
-      api.checkToken(tokenState)
-        .then((userData) => {
-          setCurrentUser(userData);
-          setLoggedIn(true);
-          if (!localStorage.getItem('allMovies')) {
-            moviesApi.getAllMovies()
-              .then((movies) => {
-                localStorage.setItem('allMovies', JSON.stringify(movies));
-              })
-              .catch((err) => console.error('Ошибка при загрузке фильмов:', err));
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          removeToken();
-          if (!publicPaths.includes(location.pathname)) {
-          console.log("Ошибка проверки токена, редирект на /signin");
+  //   if (tokenState) {
+  //     setIsCheckingToken(true);
+  //     api.checkToken(tokenState)
+  //       .then((userData) => {
+  //         setCurrentUser(userData);
+  //         setLoggedIn(true);
+  //         if (!localStorage.getItem('allMovies')) {
+  //           moviesApi.getAllMovies()
+  //             .then((movies) => {
+  //               localStorage.setItem('allMovies', JSON.stringify(movies));
+  //             })
+  //             .catch((err) => console.error('Ошибка при загрузке фильмов:', err));
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //         removeToken();
+  //         if (!publicPaths.includes(location.pathname)) {
+  //         console.log("Ошибка проверки токена, редирект на /signin");
+  //         navigate("/signin");
+  //       }
+  //       })
+  //       .finally(() => {
+  //         setIsCheckingToken(false);
+  //       });
+  //   } 
+  //   // else {
+  //   //   setIsCheckingToken(false);
+  //   //   setLoggedIn(false);
+  //   //   setCurrentUser({ name: "", email: "" });
+	//   // if (!publicPaths.includes(location.pathname)) {
+  //   //     console.log("Токен не найден, редирект на /signin");
+  //   //     navigate("/signin");
+  //   //   }
+  //   // }
+  // }, [tokenState, navigate, location.pathname]);
+
+  useEffect(() => {
+  const publicPaths = ['/', '/signin', '/signup'];
+  const isPublicPath = publicPaths.includes(location.pathname);
+
+  if (tokenState) {
+    setIsCheckingToken(true);
+    api.checkToken(tokenState)
+      .then((userData) => {
+        setCurrentUser(userData);
+        setLoggedIn(true);
+        if (!localStorage.getItem('allMovies')) {
+          moviesApi.getAllMovies()
+            .then((movies) => {
+              localStorage.setItem('allMovies', JSON.stringify(movies));
+            })
+            .catch((err) => console.error('Ошибка при загрузке фильмов:', err));
+        }
+        if (location.pathname === '/signin' || location.pathname === '/signup') {
+          navigate('/movies');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        removeToken();
+        if (!isPublicPath) {
           navigate("/signin");
         }
-        })
-        .finally(() => {
-          setIsCheckingToken(false);
-        });
-    } else {
-      setIsCheckingToken(false);
-      setLoggedIn(false);
-      setCurrentUser({ name: "", email: "" });
-	  if (!publicPaths.includes(location.pathname)) {
-        console.log("Токен не найден, редирект на /signin");
-        navigate("/signin");
-      }
+      })
+      .finally(() => {
+        setIsCheckingToken(false);
+      });
+  } else {
+    if (!isPublicPath) {
+      navigate("/signin");
     }
-  }, [tokenState, navigate, location.pathname]);
-
-  const handleRegister = (email, password, name, setMessage) => {
-  return api
-    .register(email, password, name)
-    .then((data) => {
-      if (data) {
-        setMessage("Вы успешно зарегистрировались!");
-        navigate("/signin", { replace: true });
-      }
-    })
-    .catch((error) => {
-      if (error.response && error.response.status === 409) {
-          throw new Error("Ошибка при регистрации");
-      } else {
-          throw new Error("Ошибка при регистрации" || "Произошла ошибка при регистрации.");
-      }
-    });
+  }
+}, [tokenState, navigate, location.pathname]);
+  
+  const handleRegister = (email, password, name) => {
+    return api.register(email, password, name)
+      .then((data) => {
+        if (data.token) {
+          setToken(data.token);
+          localStorage.setItem("loggedIn", true);
+          return api.getUserInfo(data.token);
+        }
+        handleLogin(email, password);
+      })
+      .then((userData) => {
+        setCurrentUser(userData);
+        setLoggedIn(true);
+        navigate("/movies");
+      })
+      .catch((error) => {
+        console.error("Ошибка при регистрации:", error);
+      });
   };
 
   const handleLogin = async (email, password) => {
@@ -109,7 +150,7 @@ function App() {
     setLoggedIn(false);
     setCurrentUser({});
     setTokenState(null);
-    navigate("/signin");
+    navigate("/");
   };
   
   function handleUpdateUser(userData) {
@@ -124,9 +165,9 @@ function App() {
       });
   }
 
-  if (isCheckingToken) {
-    return <Preloader />
-  }
+  // if (isCheckingToken) {
+  //   return <Preloader />
+  // }
 
   return (
     <CurrentUserContext.Provider value={ currentUser }>
@@ -138,7 +179,7 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute component={Profile} loggedIn={loggedIn} onUpdateUser={handleUpdateUser} setCurrentUser={setCurrentUser} onSignOut={handleSignOut} />} />
           <Route path="/signup" element={<Register onRegister={handleRegister} />} />
           <Route path="/signin" element={<Login onLogin={handleLogin} />} />
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main loggedIn={loggedIn}/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

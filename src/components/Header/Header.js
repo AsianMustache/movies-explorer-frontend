@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Navigation from "../Navigation/Navigation";
 
-function Header() {
+function Header({ loggedIn }) {
   const [isMoviesPage, setIsMoviesPage] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(false);
   const location = useLocation();
@@ -12,8 +12,8 @@ function Header() {
   const isHomePage = location.pathname === '/';
 
 useEffect(() => {
-  setIsMoviesPage(location.pathname === "/movies" || location.pathname === "/saved-movies" || location.pathname === "/profile");
-}, [location]);
+  setIsMoviesPage(location.pathname === "/movies" || location.pathname === "/saved-movies" || location.pathname === "/profile" || (location.pathname === "/" && loggedIn));
+}, [location, loggedIn]);
 
 const toggleNav = () => {
   setIsNavVisible(!isNavVisible);

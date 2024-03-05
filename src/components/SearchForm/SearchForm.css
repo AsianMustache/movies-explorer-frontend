@@ -102,6 +102,10 @@
     color: rgba(238, 52, 101, 1);
 }
 
+.search-form__input.error-placeholder::placeholder {
+    color: rgba(238, 52, 101, 1);
+}
+
 @media (max-width: 780px) {
     .search-form {
         margin: 80px 30px 40px 30px;

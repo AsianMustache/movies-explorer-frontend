@@ -6,16 +6,23 @@ import Preloader from "../Preloader/Preloader";
 import "../Movies/Movies.css";
 
 function Movies() {
-  const [allMovies, setAllMovies] = useState(() => {
-      const savedMovies = localStorage.getItem('allMovies');
-      return savedMovies ? JSON.parse(savedMovies) : null;
+//   const [allMovies, setAllMovies] = useState(() => {
+//       const savedMovies = localStorage.getItem('allMovies');
+//       return savedMovies ? JSON.parse(savedMovies) : null;
+//   });
+//   const [filteredMovies, setFilteredMovies] = useState(() => {
+//     const savedFilteredMovies = localStorage.getItem('filteredMovies');
+//     return savedFilteredMovies ? JSON.parse(savedFilteredMovies) : [];
+// });
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [error, setError] = useState("");
+const [allMovies, setAllMovies] = useState(() => {
+    const savedMovies = localStorage.getItem('allMovies');
+    return savedMovies ? JSON.parse(savedMovies) : [];
   });
-  const [filteredMovies, setFilteredMovies] = useState(() => {
-    const savedFilteredMovies = localStorage.getItem('filteredMovies');
-    return savedFilteredMovies ? JSON.parse(savedFilteredMovies) : [];
-});
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+    const [filteredMovies, setFilteredMovies] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState(() => {
     return localStorage.getItem('searchTerm') || "";
 });
@@ -37,39 +44,101 @@ useEffect(() => {
       });
   };
 
-  const handleSearch = (searchTerm, isShort) => {
-      setIsLoading(true);
-      setError("");
+//   const handleSearch = (searchTerm, isShort) => {
+//       setIsLoading(true);
+//       setError("");
 
-      setSearchTerm(searchTerm);
-      setIsShort(isShort);
+//       setSearchTerm(searchTerm);
+//       setIsShort(isShort);
 
-      const performFiltering = (movies) => {
+//       const performFiltering = (movies) => {
+//           const filtered = filterMovies(movies, searchTerm, isShort);
+//           if (filtered.length === 0) {
+//               setError("Ничего не найдено");
+//           } else {
+//               setError("");
+//           }
+//           setFilteredMovies(filtered);
+//       };
+
+//       if (!allMovies) {
+//           moviesApi.getAllMovies()
+//               .then((fetchedMovies) => {
+//                   localStorage.setItem('allMovies', JSON.stringify(fetchedMovies));
+//                   setAllMovies(fetchedMovies);
+//                   performFiltering(fetchedMovies);
+//               })
+//               .catch((error) => {
+//                   setError('Ошибка при запросе фильмов');
+//               })
+//               .finally(() => setIsLoading(false));
+//       } else {
+//           performFiltering(allMovies);
+//           setIsLoading(false);
+//       }
+//   };
+// const handleSearch = (searchTerm, isShort) => {
+//     setIsLoading(true);
+//     setSearchTerm(searchTerm);
+//     setIsShort(isShort);
+
+//     if (!allMovies.length) {
+//       moviesApi.getAllMovies()
+//         .then((movies) => {
+//           localStorage.setItem('allMovies', JSON.stringify(movies));
+//           setAllMovies(movies);
+//           const filtered = filterMovies(movies, searchTerm, isShort);
+//           setFilteredMovies(filtered);
+//           if (!filtered.length) {
+//             setError("Ничего не найдено");
+//           }
+//         })
+//         .catch((err) => {
+//           console.error('Ошибка при загрузке фильмов:', err);
+//           setError('Ошибка при запросе фильмов');
+//         })
+//         .finally(() => setIsLoading(false));
+//     } else {
+//       const filtered = filterMovies(allMovies, searchTerm, isShort);
+//       setFilteredMovies(filtered);
+//       if (!filtered.length) {
+//         setError("Ничего не найдено");
+//       }
+//       setIsLoading(false);
+//     }
+//   };
+const handleSearch = (searchTerm, isShort) => {
+    setIsLoading(true);
+    setError("");
+
+    setTimeout(() => {
+    if (allMovies.length === 0) {
+      moviesApi.getAllMovies()
+        .then((movies) => {
           const filtered = filterMovies(movies, searchTerm, isShort);
-          if (filtered.length === 0) {
-              setError("Ничего не найдено");
-          } else {
-              setError("");
-          }
+          localStorage.setItem('allMovies', JSON.stringify(movies));
+          setAllMovies(movies);
           setFilteredMovies(filtered);
-      };
-
-      if (!allMovies) {
-          moviesApi.getAllMovies()
-              .then((fetchedMovies) => {
-                  localStorage.setItem('allMovies', JSON.stringify(fetchedMovies));
-                  setAllMovies(fetchedMovies);
-                  performFiltering(fetchedMovies);
-              })
-              .catch((error) => {
-                  setError('Ошибка при запросе фильмов');
-              })
-              .finally(() => setIsLoading(false));
-      } else {
-          performFiltering(allMovies);
+          if (filtered.length === 0) {
+            setError("Ничего не найдено");
+          }
+        })
+        .catch((err) => {
+          setError('Ошибка при запросе фильмов');
+        })
+        .finally(() => {
           setIsLoading(false);
+        });
+    } else {
+      const filtered = filterMovies(allMovies, searchTerm, isShort);
+      setFilteredMovies(filtered);
+      if (filtered.length === 0) {
+        setError("Ничего не найдено");
       }
-  };
+      setIsLoading(false);
+    }
+  }, 500);
+};
 
   const toggleShortFilms = () => {
       const newIsShort = !isShort;

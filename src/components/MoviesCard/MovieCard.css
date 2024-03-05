@@ -70,7 +70,7 @@
 }
 
 .movies-list__delete-button {
-    display: block;
+    display: none;
     width: 21px;
     min-width: 21px;
     height: 21px;
@@ -83,8 +83,15 @@
     padding: 0;
 }
 
+.movies-list__container:hover .movies-list__delete-button {
+    display: block;
+}
+
 .movies-list__image-container {
-    flex: 0 0 auto;
+    width: 100%;
+    max-width: 360px;
+    max-height: 201px;
+    height: 100%;
     border-radius: 6px;
 }
 
@@ -97,6 +104,10 @@
 @media (max-width: 780px) {
     .movies-list__title-container {
         margin-top: 12px;
+    }
+
+    .movies-list__delete-button {
+        display: block;
     }
 
 }
