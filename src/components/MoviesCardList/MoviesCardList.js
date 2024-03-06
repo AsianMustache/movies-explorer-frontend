@@ -3,7 +3,7 @@ import "../MoviesCardList/MoviesCardList.css";
 import React, { useState, useEffect } from "react";
 import Preloader from "../Preloader/Preloader";
 
-function MoviesCardList({ movies, isLoading, onMovieDelete }) {
+function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer  }) {
   const [displayMovies, setDisplayMovies] = useState([]);
   const [moreLoad, setMoreLoad] = useState(true);
   // const initialCount = window.innerWidth > 768 ? 12 : 5;
@@ -78,7 +78,7 @@ function MoviesCardList({ movies, isLoading, onMovieDelete }) {
             ) : (
               <section className="movies-list">
                 {displayMovies.map((movie) => (
-                  <MovieCard key={movie.id} movie={movie} onMovieDelete={onMovieDelete} />
+                  <MovieCard key={movie.id} movie={movie} onMovieDelete={onMovieDelete} onSaveMovieToServer ={onSaveMovieToServer }/>
                 ))}
               </section>
       )}

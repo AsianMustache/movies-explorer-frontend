@@ -25,26 +25,6 @@ class MovieApi {
         .catch(this._handleNetworkError);
       }
 
-      changeLikeStatus(moveiId, isLiked) {
-        const method = isLiked ? "PUT" : "DELETE";
-        const url = `${this._url}/movies/${moveiId}`;
-        console.log(`Отправка запроса на изменение статуса лайка. Метод: ${method}, URL: ${url}`);
-  
-        return fetch(url, {
-          method: method,
-          credentials: "include",
-          headers: this._headers,
-        }).then((response) => {
-          console.log(`Ответ сервера на запрос изменения статуса лайка:`, response);
-          if (!response.ok) {
-            return response.json().then((err) => {
-              throw err;
-            });
-          }
-          return response.json();
-        });
-      }
-
       _checkResponse(response) {
         if (response.ok) {
           return response.json();

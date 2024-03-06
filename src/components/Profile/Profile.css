@@ -140,8 +140,12 @@
 .profile-update-message {
     flex: 0 0 auto;
     font: 500 11px Inter, Arial, sans-serif;
-    color: rgba(255, 255, 255, 1);
+    color: rgba(61, 220, 132, 1);
     white-space: pre-wrap;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
 }
 
 @media (max-width: 980px) {

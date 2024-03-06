@@ -106,6 +106,95 @@ class MainApi {
         });
     };
 
+    likeMovie(token, movie) {
+      // function getCurrentUserId() {
+      //   return localStorage.getItem('userId');
+      // }
+      // function getThumbnailUrl(movie) {
+      //   const baseURL = "http://localhost:3000/uploads/";
+      //   if (movie.thumbnail && movie.thumbnail.hash && movie.thumbnail.ext) {
+      //     return `${baseURL}${movie.thumbnail.hash}${movie.thumbnail.ext}`;
+      //   }
+      //   return null;
+      // }
+      // const ownerId = getCurrentUserId();
+      // const thumbnailUrl = getThumbnailUrl(movie);
+      // const movieData = {
+      //   country: movie.country,
+      //   director: movie.director,
+      //   duration: parseInt(movie.duration, 10),
+      //   year: movie.year,
+      //   description: movie.description,
+      //   image: movie.image.url,
+      //   trailerLink: movie.trailerLink,
+      //   thumbnail: thumbnailUrl,
+      //   owner: ownerId,
+      //   movieId: movie.id,
+      //   nameRU: movie.nameRU,
+      //   nameEN: movie.nameEN
+      // // };
+      console.log("Отправляемые данные на /movies:", movie);
+      return fetch(`${this._url}/movies`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(movie)
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return response.json().then((json) => {
+          throw new Error(json.message || `Ошибка: ${response.status}`);
+          })
+          .catch((err) => {
+            console.error("Ошибка при сохранении/загрузке фильма:", err);
+          });
+      })
+    }
+
+    dislikeMovie(id, token) {
+      return fetch(`${this._url}/movies/${id}`,{
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return response.json().then((json) => {
+          throw new Error(json.message || `Ошибка: ${response.status}`);
+          });
+      })
+    }
+
+    getMovies() {
+      const token = localStorage.getItem("token");
+      return fetch(`${this._url}/movies`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return response.json().then((json) => {
+          throw new Error(json.message || `Ошибка: ${response.status}`);
+          });
+      })
+    }
+
     checkToken(token) {
       return fetch(`${this._url}/users/me`, {
         method: "GET",

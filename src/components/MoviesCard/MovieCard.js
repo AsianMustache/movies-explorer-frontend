@@ -5,14 +5,16 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import deleteButton from "../../images/delete.svg";
 
-function MovieCard({ movie, onMovieDelete }) {
+function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer }) {
     const location = useLocation();
 
     const savedMovies = JSON.parse(localStorage.getItem("savedMovies") || "[]");
     const isSavedMovie = savedMovies.some(savedMovie => savedMovie.id === movie.id);
     const handleDeleteClick = () => {
-        onMovieDelete(movie);
+        console.log(movie.id)
+        onMovieDelete(movie.id);
     };
+    
     
     useEffect(() => {
         setIsSaved(isSavedMovie);
@@ -23,16 +25,26 @@ function MovieCard({ movie, onMovieDelete }) {
 
     const duration = `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`;
 
+    // const handleSaveClick = () => {
+    //     let updatedSavedMovies;
+    //     if (isSaved) {
+    //         updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.id !== movie.id);
+    //     } else {
+    //         updatedSavedMovies = [...savedMovies, movie];
+    //     }
+    //     localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+    //     setIsSaved(!isSaved);
+    // };
+
     const handleSaveClick = () => {
-        let updatedSavedMovies;
         if (isSaved) {
-            updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.id !== movie.id);
+            const savedMovieId = savedMoviesList.find(savedMovie => savedMovie.id === movie.id)._id;
+            onMovieDelete(savedMovieId);
         } else {
-            updatedSavedMovies = [...savedMovies, movie];
+            console.log("Данные фильма для сохранения:", movie);
+            onSaveMovieToServer(movie);
         }
-        localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
-        setIsSaved(!isSaved);
-    };
+    }
 
     return (
         <>

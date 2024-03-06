@@ -8,6 +8,7 @@ function Login({ onLogin }) {
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const validateEmail = (email) => {
         const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -25,18 +26,32 @@ function Login({ onLogin }) {
         setIsFormValid(isValid);
     }, [email, password]);
 
-    const resetForm = () => {
-        setEmail("");
-        setPassword("");
-      };
+    // const resetForm = () => {
+    //     setEmail("");
+    //     setPassword("");
+    //   };
 
-    const handleSubmit = (e) => {
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (!isFormValid) {
+    //         return;
+    //     }
+    //     onLogin(email, password).then(resetForm);
+    // }
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isFormValid) {
             return;
         }
-        onLogin(email, password).then(resetForm);
-    }
+        setIsSubmitting(true);
+        try {
+            await onLogin(email, password);
+        } catch (error) {
+            console.error("Ошибка при входе:", error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <section className="login">
@@ -61,7 +76,7 @@ function Login({ onLogin }) {
                     </div>
                 </div>
                 <div className="login__action-container">
-                    <button className={`login__submit-button ${!isFormValid ? "login__submit-button_disabled" : ""}`} disabled={!isFormValid}>Войти</button>
+                    <button className={`login__submit-button ${!isFormValid || isSubmitting ? "login__submit-button_disabled" : ""}`} disabled={!isFormValid}>Войти</button>
                     <div className="login__registration-prompt">
                         <p className="login__registration-message">Ещё не зарегистрированы?</p>
                         <a href="/signup" className="login__registration-link">Регистрация</a>
