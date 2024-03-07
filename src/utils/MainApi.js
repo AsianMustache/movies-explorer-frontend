@@ -48,7 +48,7 @@ class MainApi {
               throw new Error("Не удалось получить данные пользователя");
           }
           return response.json();
-      });
+      })
   }
 
     editApiProfile(name, email) {
@@ -106,34 +106,43 @@ class MainApi {
         });
     };
 
-    likeMovie(token, movie) {
-      // function getCurrentUserId() {
-      //   return localStorage.getItem('userId');
-      // }
-      // function getThumbnailUrl(movie) {
-      //   const baseURL = "http://localhost:3000/uploads/";
-      //   if (movie.thumbnail && movie.thumbnail.hash && movie.thumbnail.ext) {
-      //     return `${baseURL}${movie.thumbnail.hash}${movie.thumbnail.ext}`;
-      //   }
-      //   return null;
-      // }
-      // const ownerId = getCurrentUserId();
-      // const thumbnailUrl = getThumbnailUrl(movie);
-      // const movieData = {
-      //   country: movie.country,
-      //   director: movie.director,
-      //   duration: parseInt(movie.duration, 10),
-      //   year: movie.year,
-      //   description: movie.description,
-      //   image: movie.image.url,
-      //   trailerLink: movie.trailerLink,
-      //   thumbnail: thumbnailUrl,
-      //   owner: ownerId,
-      //   movieId: movie.id,
-      //   nameRU: movie.nameRU,
-      //   nameEN: movie.nameEN
-      // // };
-      console.log("Отправляемые данные на /movies:", movie);
+    // likeMovie(token, movie) {
+    //   console.log("Отправляемые данные на /movies:", movie);
+    //   return fetch(`${this._url}/movies`, {
+    //     method: "POST",
+    //     credentials: "include",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Authorization": `Bearer ${token}`,
+    //     },
+    //     body: JSON.stringify(movie)
+    //   })
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       return response.json();
+    //     }
+    //     return response.json().then((json) => {
+    //       throw new Error(json.message || `Ошибка: ${response.status}`);
+    //       })
+    //       .catch((err) => {
+    //         console.error("Ошибка при сохранении/загрузке фильма:", err);
+    //       });
+    //   })
+    // }
+    likeMovie(token, movie, owner) {
+      const movieData = {
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${movie.image.url}`,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+      };
       return fetch(`${this._url}/movies`, {
         method: "POST",
         credentials: "include",
@@ -141,19 +150,20 @@ class MainApi {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(movie)
+        body: JSON.stringify(movieData)
       })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
+      .then(async response => {
+        if (!response.ok) {
+          const errorBody = await response.json();
+          console.log('Ответ сервера на ошибку:', errorBody);
+          throw new Error(`Ошибка валидации: ${errorBody.message || 'Неизвестная ошибка'}`);
         }
-        return response.json().then((json) => {
-          throw new Error(json.message || `Ошибка: ${response.status}`);
-          })
-          .catch((err) => {
-            console.error("Ошибка при сохранении/загрузке фильма:", err);
-          });
+        return response.json();
       })
+      .catch(error => {
+        console.error("Ошибка при сохранении/загрузке фильма:", error.message);
+        throw error;
+      });
     }
 
     dislikeMovie(id, token) {

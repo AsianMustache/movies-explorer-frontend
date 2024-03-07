@@ -38,10 +38,10 @@ function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer 
 
     const handleSaveClick = () => {
         if (isSaved) {
-            const savedMovieId = savedMoviesList.find(savedMovie => savedMovie.id === movie.id)._id;
+            const movieId = movie.id
+            const savedMovieId = savedMoviesList.find(savedMovie => savedMovie.id === movieId)._id;
             onMovieDelete(savedMovieId);
         } else {
-            console.log("Данные фильма для сохранения:", movie);
             onSaveMovieToServer(movie);
         }
     }

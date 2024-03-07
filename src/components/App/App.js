@@ -262,8 +262,6 @@ useEffect(() => {
       .then((userData) => {
         setCurrentUser(userData);
         setLoggedIn(true);
-        console.log(userData._id)
-        localStorage.setItem("userId", userData._id);
         navigate("/movies");
       })
       .catch((error) => {
@@ -276,12 +274,10 @@ useEffect(() => {
       const data = await api.authorize(email, password);
       if (data.token) {
         setToken(data.token);
-        console.log(data._id)
+        console.log(data.id)
         localStorage.setItem("loggedIn", true);
-        const userData = await api.getUserInfo(data.token); // Получаем информацию о пользователе
-        setCurrentUser(userData);
-        localStorage.setItem("userId", userData._id);
-        // setCurrentUser(data);
+        localStorage.setItem("userId", data.id);
+        setCurrentUser(data);
         setLoggedIn(true);
         navigate("/movies");
       }
@@ -313,11 +309,8 @@ useEffect(() => {
 
   const handleSaveMovie = (movie) => {
     const userId = localStorage.getItem("userId")
-    console.log("Сохранение фильма с данными:", movie);
-    console.log(userId)
-    api.likeMovie(tokenState, {...movie, owner: userId})
+    api.likeMovie(tokenState, {...movie}, userId)
       .then((savedMovie) => {
-        console.log("Фильм успешно сохранен:", savedMovie);
         setSavedNewMovies([...savedNewMovies, savedMovie]);
       })
       .catch((err) => console.error("Ошибка при сохранении фильма:", err));
