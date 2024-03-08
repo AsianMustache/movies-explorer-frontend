@@ -3,7 +3,7 @@ import "../MoviesCardList/MoviesCardList.css";
 import React, { useState, useEffect } from "react";
 import Preloader from "../Preloader/Preloader";
 
-function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer  }) {
+function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer, savedMoviesList }) {
   const [displayMovies, setDisplayMovies] = useState([]);
   const [moreLoad, setMoreLoad] = useState(true);
   // const initialCount = window.innerWidth > 768 ? 12 : 5;
@@ -25,7 +25,6 @@ function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer 
       initialCount = 5; // 5 карточек по 1 в ряд
       increment = 2; // Добавляем по 2 карточки
     }
-
     return { initialCount, increment };
   };
 
@@ -66,22 +65,20 @@ function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer 
     setDisplayMovies(nextMovies);
     setMoreLoad(isMoreToLoad);
   };
-
   if (isLoading) {
     return <Preloader />
   }
-
     return (
         <>
           {isLoading ? (
               <Preloader />
             ) : (
-              <section className="movies-list">
-                {displayMovies.map((movie) => (
-                  <MovieCard key={movie.id} movie={movie} onMovieDelete={onMovieDelete} onSaveMovieToServer ={onSaveMovieToServer }/>
-                ))}
-              </section>
-      )}
+                  <section className="movies-list">
+                    {displayMovies.map((movie) => (
+                      <MovieCard key={movie.id} movie={movie} onMovieDelete={onMovieDelete} onSaveMovieToServer ={onSaveMovieToServer} savedMoviesList={savedMoviesList}/>
+                    ))}
+                  </section>
+                )}
                 {moreLoad && <button className="movies-list__more-button" onClick={handleLoadMore}>Ещё</button>}
         </>
     );

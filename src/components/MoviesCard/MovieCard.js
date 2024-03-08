@@ -7,50 +7,63 @@ import deleteButton from "../../images/delete.svg";
 
 function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer }) {
     const location = useLocation();
-
-    const savedMovies = JSON.parse(localStorage.getItem("savedMovies") || "[]");
-    const isSavedMovie = savedMovies.some(savedMovie => savedMovie.id === movie.id);
-    const handleDeleteClick = () => {
-        console.log(movie.id)
-        onMovieDelete(movie.id);
-    };
-    
-    
+    const [isSaved, setIsSaved] = useState(savedMoviesList && movie ? savedMoviesList.some(savedMovie => savedMovie.movieId === movie.id) : false);
     useEffect(() => {
-        setIsSaved(isSavedMovie);
-    }, [isSavedMovie]);
-
-    const [isSaved, setIsSaved] = useState(isSavedMovie);
+        if (savedMoviesList && movie) {
+            setIsSaved(savedMoviesList.some(savedMovie => savedMovie.movieId === movie.id));
+        }
+    }, [savedMoviesList, movie]);
+    
     const isSavedMoviesPage = location.pathname === "/saved-movies";
 
     const duration = `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`;
 
     // const handleSaveClick = () => {
-    //     let updatedSavedMovies;
-    //     if (isSaved) {
-    //         updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie.id !== movie.id);
+    //     if (!isSaved) {
+    //         onSaveMovieToServer(movie).then(() => {
+    //             setIsSaved(true)
+    //         });
     //     } else {
-    //         updatedSavedMovies = [...savedMovies, movie];
+    //         const savedMovieId = savedMoviesList.find(savedMovie => savedMovie.movieId === movie.id);
+    //         console.log(savedMovieId)
+    //         onMovieDelete(savedMovieId._id).then(() => {
+    //             setIsSaved(false);
+    //         });
     //     }
-    //     localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
-    //     setIsSaved(!isSaved);
     // };
-
-    const handleSaveClick = () => {
-        if (isSaved) {
-            const movieId = movie.id
-            const savedMovieId = savedMoviesList.find(savedMovie => savedMovie.id === movieId)._id;
-            onMovieDelete(savedMovieId);
+    const handleSaveClick = (e) => {
+        e.preventDefault(); // Добавлено предотвращение действия по умолчанию
+        if (!isSaved) {
+            onSaveMovieToServer(movie).then(() => {
+                setIsSaved(true);
+            }).catch(err => console.error("Ошибка при сохранении фильма:", err));
         } else {
-            onSaveMovieToServer(movie);
+            // Найдем ID сохраненного фильма для его удаления
+            const movieToDelete = savedMoviesList.find(savedMovie => savedMovie.movieId === movie.id);
+            if (movieToDelete && movieToDelete._id) {
+                onMovieDelete(movieToDelete._id).then(() => {
+                    setIsSaved(false);
+                }).catch(err => console.error("Ошибка при удалении фильма:", err));
+            }
         }
+    };
+
+    let imageUrl;
+    if (movie.image && movie.image.url) {
+        if (movie.image.url.startsWith('http')) {
+            imageUrl = movie.image.url;
+        } else {
+            imageUrl = `https://api.nomoreparties.co${movie.image.url}`;
+        }
+    } else {
+        imageUrl = `${movie.image}`;
     }
 
     return (
         <>
             <article className="movies-list__container">
             <a href={movie.trailerLink} target="_blank" rel="noopener noreferrer">
-                <img className="movies-list__image-container" src={`https://api.nomoreparties.co${movie.image.url}`} alt={movie.nameRU} />
+                <img className="movies-list__image-container" src={imageUrl} alt={movie.nameRU} />
             </a>
                 <div className="movies-list__title-container">
                     <p className="movies-list__title">{movie.nameRU}</p>
@@ -58,7 +71,7 @@ function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer 
                 </div>
 
                 {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button" onClick={handleDeleteClick} >
+                    <button className="movies-list__delete-button" onClick={handleSaveClick} >
                         <img src={ deleteButton } alt="Удаление карточки" />
                     </button>
                 ) : (

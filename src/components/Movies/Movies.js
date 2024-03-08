@@ -103,6 +103,7 @@ function Movies({ onSaveMovieToServer, onDeleteMovie, savedMoviesList }) {
                         movies={filteredMovies}
                         savedMoviesList={savedMoviesList}
                         onSaveMovieToServer={onSaveMovieToServer}
+                        onMovieDelete={onDeleteMovie}
                     />}
                 </>
             )}

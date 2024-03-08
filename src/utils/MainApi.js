@@ -129,7 +129,8 @@ class MainApi {
     //       });
     //   })
     // }
-    likeMovie(token, movie, owner) {
+    likeMovie(token, movie) {
+      console.log(movie)
       const movieData = {
         country: movie.country,
         director: movie.director,
@@ -166,8 +167,9 @@ class MainApi {
       });
     }
 
-    dislikeMovie(id, token) {
-      return fetch(`${this._url}/movies/${id}`,{
+    dislikeMovie(movieId, token) {
+      console.log("Удаляемый movieId метод в  MainApi:", movieId);
+      return fetch(`${this._url}/movies/${movieId}`,{
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -181,8 +183,11 @@ class MainApi {
         }
         return response.json().then((json) => {
           throw new Error(json.message || `Ошибка: ${response.status}`);
-          });
+          })
       })
+      .catch(error => {
+        throw error;
+      });
     }
 
     getMovies() {
