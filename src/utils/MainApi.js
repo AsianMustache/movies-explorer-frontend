@@ -106,31 +106,7 @@ class MainApi {
         });
     };
 
-    // likeMovie(token, movie) {
-    //   console.log("Отправляемые данные на /movies:", movie);
-    //   return fetch(`${this._url}/movies`, {
-    //     method: "POST",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Authorization": `Bearer ${token}`,
-    //     },
-    //     body: JSON.stringify(movie)
-    //   })
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       return response.json();
-    //     }
-    //     return response.json().then((json) => {
-    //       throw new Error(json.message || `Ошибка: ${response.status}`);
-    //       })
-    //       .catch((err) => {
-    //         console.error("Ошибка при сохранении/загрузке фильма:", err);
-    //       });
-    //   })
-    // }
     likeMovie(token, movie) {
-      console.log(movie)
       const movieData = {
         country: movie.country,
         director: movie.director,
@@ -168,7 +144,6 @@ class MainApi {
     }
 
     dislikeMovie(movieId, token) {
-      console.log("Удаляемый movieId метод в  MainApi:", movieId);
       return fetch(`${this._url}/movies/${movieId}`,{
         method: "DELETE",
         credentials: "include",
@@ -232,8 +207,8 @@ class MainApi {
 }
 
 const api = new MainApi({
-    // url: "https://api.diplomafan.nomoredomainsmonster.ru",
-    url: "http://localhost:3000",
+    url: "https://api.diplomafan.nomoredomainsmonster.ru",
+    // url: "http://localhost:3000",
     headers: {
       "Content-Type": "application/json",
     },

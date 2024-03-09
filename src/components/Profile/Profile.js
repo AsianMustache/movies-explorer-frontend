@@ -2,8 +2,8 @@ import "../Profile/Profile.css"
 import React, { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Profile({ onSignOut, onUpdateUser, setCurrentUser   }) {
-    const currentUser = useContext(CurrentUserContext)
+function Profile({ onSignOut, onUpdateUser, setCurrentUser }) {
+    const {currentUser} = useContext(CurrentUserContext)
     const [name, setName] = useState(currentUser.name);
     const [email, setEmail] = useState(currentUser.email);
     const [isDataEdited, setIsDataEdited] = useState(false);

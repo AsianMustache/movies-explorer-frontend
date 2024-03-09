@@ -6,8 +6,6 @@ import Preloader from "../Preloader/Preloader";
 function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer, savedMoviesList }) {
   const [displayMovies, setDisplayMovies] = useState([]);
   const [moreLoad, setMoreLoad] = useState(true);
-  // const initialCount = window.innerWidth > 768 ? 12 : 5;
-  // const increment = window.innerWidth > 768 ? 3 : 2;
   const calculateCards = () => {
     const width = window.innerWidth;
     let initialCount, increment;
@@ -28,19 +26,6 @@ function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer,
     return { initialCount, increment };
   };
 
-  // useEffect(() => {
-    
-  //   setDisplayMovies(movies.slice(0, initialCount));
-  //   setMoreLoad(movies.length > initialCount);
-  // }, [movies, initialCount]);
-
-  // const handleLoadMore = () => {
-  //   const currentLength = displayMovies.length;
-  //   const isMoreToLoad = currentLength + increment < movies.length;
-  //   const nextMovies = movies.slice(0, currentLength + increment);
-  //   setDisplayMovies(nextMovies);
-  //   setMoreLoad(isMoreToLoad);
-  // }
   useEffect(() => {
     const { initialCount } = calculateCards();
     setDisplayMovies(movies.slice(0, initialCount));

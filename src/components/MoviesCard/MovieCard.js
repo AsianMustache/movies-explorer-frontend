@@ -15,38 +15,26 @@ function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer 
     }, [savedMoviesList, movie]);
     
     const isSavedMoviesPage = location.pathname === "/saved-movies";
-
     const duration = `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`;
 
-    // const handleSaveClick = () => {
-    //     if (!isSaved) {
-    //         onSaveMovieToServer(movie).then(() => {
-    //             setIsSaved(true)
-    //         });
-    //     } else {
-    //         const savedMovieId = savedMoviesList.find(savedMovie => savedMovie.movieId === movie.id);
-    //         console.log(savedMovieId)
-    //         onMovieDelete(savedMovieId._id).then(() => {
-    //             setIsSaved(false);
-    //         });
-    //     }
-    // };
-    const handleSaveClick = (e) => {
-        e.preventDefault(); // Добавлено предотвращение действия по умолчанию
+    const handleSaveOrDeleteMovie = () => {
         if (!isSaved) {
-            onSaveMovieToServer(movie).then(() => {
+            onSaveMovieToServer({
+                ...movie,
+                movieId: movie.id,
+            }).then(() => {
                 setIsSaved(true);
             }).catch(err => console.error("Ошибка при сохранении фильма:", err));
         } else {
-            // Найдем ID сохраненного фильма для его удаления
             const movieToDelete = savedMoviesList.find(savedMovie => savedMovie.movieId === movie.id);
-            if (movieToDelete && movieToDelete._id) {
+            if (movieToDelete) {
                 onMovieDelete(movieToDelete._id).then(() => {
                     setIsSaved(false);
                 }).catch(err => console.error("Ошибка при удалении фильма:", err));
             }
         }
     };
+
 
     let imageUrl;
     if (movie.image && movie.image.url) {
@@ -71,11 +59,11 @@ function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer 
                 </div>
 
                 {isSavedMoviesPage ? (
-                    <button className="movies-list__delete-button" onClick={handleSaveClick} >
+                    <button className="movies-list__delete-button" onClick={() => onMovieDelete(movie._id)} >
                         <img src={ deleteButton } alt="Удаление карточки" />
                     </button>
                 ) : (
-                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveClick}>
+                    <button className={!isSaved ? "movies-list__save-button" : "movies-list__save-button__active"} onClick={handleSaveOrDeleteMovie}>
                         {isSaved ? <img src={favorite} alt="Избранное" /> : "Сохранить"}
                     </button>
                 )}

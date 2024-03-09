@@ -26,7 +26,6 @@ function App() {
   const [tokenState, setTokenState] = useState(getToken());
   const [isCheckingToken, setIsCheckingToken] = useState(true);
   const [savedNewMovies, setSavedNewMovies] = useState([]);
-  // const userId = currentUser._id;
 
   const setToken = (newToken) => {
     localStorage.setItem("token", newToken);
@@ -133,36 +132,17 @@ useEffect(() => {
     }
   };
 
-  // const handleDeleteMovie = (movie) => {
-  //   console.log(movie)
-  //   console.log("Удаляемый movieId:", movie.id);
-  //   console.log("Список сохраненных фильмов перед удалением:", savedNewMovies);
-  //   return api.dislikeMovie(movie.movieId, tokenState)
-  //     .then(() => {
-  //       const updatedMovies = savedNewMovies.filter((movie) => {console.log(`Сравниваем movieId: ${movie.movieId} с movie.id: ${movie.id}`); return movie.id !== movie.movieId} );
-  //       setSavedNewMovies(updatedMovies);
-  //       localStorage.setItem('savedMovies', JSON.stringify(updatedMovies));
-  //     })
-  //     .catch((err) => console.error("Ошибка при удалении фильма:", err));
-  // };
   const handleDeleteMovie = (movieId) => {
-    console.log(savedNewMovies)
     const token = localStorage.getItem("token");
-    const existingMovie = savedNewMovies.find(m => m.movieId === movieId);
-    console.log("Идентификатор фильма для удаления:", movieId);
-    savedNewMovies.forEach(movie => console.log("Идентификатор в savedNewMovies:", movie.movieId));
-    console.log("Найденный фильм для удаления, _id:", existingMovie ? existingMovie._id : "Фильм не найден");
-    console.log("Найденный фильм для удаления:", existingMovie);
-    if (existingMovie) {
-      return api.dislikeMovie(existingMovie._id, token)
-        .then(() => {
-          const updatedMovies = savedNewMovies.filter(m => m.movieId !== movieId);
-          setSavedNewMovies(updatedMovies);
-          localStorage.setItem("savedMovies", JSON.stringify(updatedMovies));
-        })
-        .catch((err) => console.error("Ошибка при удалении фильма:", err));
-    }
+    return api.dislikeMovie(movieId, token)
+      .then(() => {
+        const updatedSavedMovies = savedNewMovies.filter((movie) => movie._id !== movieId);
+        setSavedNewMovies(updatedSavedMovies);
+        localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+      })
+      .catch((error) => console.error("Ошибка при удалении фильма:", error));
   };
+  
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, savedMovies: savedNewMovies }}>

@@ -84,16 +84,6 @@ function Movies({ onSaveMovieToServer, onDeleteMovie, savedMoviesList }) {
         }
     };
 
-    // const handleMovieSave = (movie) => {
-    //     const isSaved = savedNewMovies.some(savedMovie => savedMovie.movieId === movie.id);
-    //     if (!isSaved) {
-    //       onSaveMovie(movie);
-    //     } else {
-    //       const savedMovie = savedNewMovies.find(savedMovie => savedMovie.movieId === movie.id);
-    //       onDeleteMovie(savedMovie._id);
-    //     }
-    //   };
-
     return (
         <main>
             <SearchForm onSearch={handleSearch} searchTerm={searchTerm} isShort={isShort} toggleShortFilms={toggleShortFilms} />
