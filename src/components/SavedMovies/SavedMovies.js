@@ -39,7 +39,6 @@ function SavedMovies({ onDeleteMovie, onSaveMovieToServer }) {
         setIsLoading(false);
         setLastSuccessfulSearch(search);
 
-        console.log("Отфильтрованные фильмы после поиска:", filtered);
       }, 500);
     };
 
@@ -80,13 +79,10 @@ function SavedMovies({ onDeleteMovie, onSaveMovieToServer }) {
         } else {
           setError("");
         }
-        console.log("Отфильтрованные фильмы после удаления:", filtered);
         return filtered;
       });
     };
 
-    console.log("Отфильтрованные фильмы после удаления:", filteredMovies);
-    console.log("Последний успешный запрос:", lastSuccessfulSearch);
   
     return (
       <main>
