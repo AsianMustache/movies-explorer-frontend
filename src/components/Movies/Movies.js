@@ -43,37 +43,75 @@ function Movies({ onSaveMovieToServer, onDeleteMovie, savedMoviesList }) {
         });
     };
 
-    const handleSearch = (newSearchTerm, isShort) => {
-        updateSearchTerm(newSearchTerm);
+    // const handleSearch = (newSearchTerm, isShort) => {
+    //     updateSearchTerm(newSearchTerm);
+    //     setIsLoading(true);
+    //     setError("");
+    //     setTimeout(() => {
+    //         if (allMovies.length === 0) {
+    //             moviesApi.getAllMovies()
+    //                 .then((movies) => {
+    //                     const filtered = filterMovies(movies, searchTerm, isShort);
+    //                     localStorage.setItem('allMovies', JSON.stringify(movies));
+    //                     setAllMovies(movies);
+    //                     setFilteredMovies(filtered);
+    //                     if (filtered.length === 0) {
+    //                         setError("Ничего не найдено");
+    //                     }
+    //                 })
+    //                 .catch((err) => {
+    //                     setError('Ошибка при запросе фильмов');
+    //                 })
+    //                 .finally(() => {
+    //                     setIsLoading(false);
+    //                 });
+    //         } else {
+    //             const filtered = filterMovies(allMovies, searchTerm, isShort);
+    //             setFilteredMovies(filtered);
+    //             if (filtered.length === 0) {
+    //                 setError("Ничего не найдено");
+    //             }
+    //             setIsLoading(false);
+    //         }
+    //     }, 500);
+    // };
+
+    const handleSearch = (newSearchTerm, newIsShort) => {
         setIsLoading(true);
         setError("");
+    
+        // Обновляем поисковой запрос и состояние короткометражек немедленно
+        updateSearchTerm(newSearchTerm);
+        setIsShort(newIsShort);
         setTimeout(() => {
-            if (allMovies.length === 0) {
-                moviesApi.getAllMovies()
-                    .then((movies) => {
-                        const filtered = filterMovies(movies, searchTerm, isShort);
-                        localStorage.setItem('allMovies', JSON.stringify(movies));
-                        setAllMovies(movies);
-                        setFilteredMovies(filtered);
-                        if (filtered.length === 0) {
-                            setError("Ничего не найдено");
-                        }
-                    })
-                    .catch((err) => {
-                        setError('Ошибка при запросе фильмов');
-                    })
-                    .finally(() => {
-                        setIsLoading(false);
-                    });
-            } else {
-                const filtered = filterMovies(allMovies, searchTerm, isShort);
-                setFilteredMovies(filtered);
-                if (filtered.length === 0) {
-                    setError("Ничего не найдено");
-                }
-                setIsLoading(false);
+        if (allMovies.length === 0) {
+            moviesApi.getAllMovies()
+                .then((movies) => {
+                    // Используем новые значения для фильтрации
+                    const filtered = filterMovies(movies, newSearchTerm, newIsShort);
+                    localStorage.setItem('allMovies', JSON.stringify(movies));
+                    setAllMovies(movies);
+                    setFilteredMovies(filtered);
+                    if (filtered.length === 0) {
+                        setError("Ничего не найдено");
+                    }
+                })
+                .catch((err) => {
+                    setError('Ошибка при запросе фильмов');
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        } else {
+            // Используем новые значения для фильтрации среди уже загруженных фильмов
+            const filtered = filterMovies(allMovies, newSearchTerm, newIsShort);
+            setFilteredMovies(filtered);
+            if (filtered.length === 0) {
+                setError("Ничего не найдено");
             }
-        }, 500);
+            setIsLoading(false);
+        }
+        }, 500)
     };
 
     const toggleShortFilms = () => {

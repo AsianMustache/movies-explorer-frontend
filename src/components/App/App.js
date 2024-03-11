@@ -94,6 +94,7 @@ useEffect(() => {
       }
     } catch (err) {
       console.log(err);
+      handleSignOut();
     }
   };
 

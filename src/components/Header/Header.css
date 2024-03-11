@@ -91,6 +91,10 @@
   text-decoration: none;
 }
 
+.header__movie-link.active, .header__movie-link_saved.active, .header__profile-button.active {
+  text-decoration: underline;
+}
+
 .header__movie-link_saved {
   flex: 0 0 auto;
   margin-left: 16px;

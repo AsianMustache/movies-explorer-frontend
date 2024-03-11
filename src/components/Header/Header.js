@@ -1,6 +1,6 @@
 import "./Header.css";
 import logo from "../../images/logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink , useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Navigation from "../Navigation/Navigation";
 
@@ -27,19 +27,19 @@ const toggleNav = () => {
 return (
   <header className="header">
     <div className="header__logo">
-      <Link to="/">
+      <NavLink  to="/">
         <img src={logo} className="header__logo-image" alt="Logo" />
-      </Link>
+      </NavLink>
     </div>
     {shouldRenderHeader && (
       <>
         {isMoviesPage ? (
           <div className="header__movie-nav">
             <div className="header__movie-links">
-              <Link to="/movies" className="header__movie-link">Фильмы</Link>
-              <Link to="/saved-movies" className="header__movie-link_saved">Сохранённые фильмы</Link>
+              <NavLink  to="/movies" className="header__movie-link">Фильмы</NavLink>
+              <NavLink  to="/saved-movies" className="header__movie-link_saved">Сохранённые фильмы</NavLink>
             </div>
-            <Link to="/profile" className="header__profile-button">Аккаунт</Link>
+            <NavLink  to="/profile" className="header__profile-button">Аккаунт</NavLink>
           </div>
         ) : (
             <div className="header__registration">

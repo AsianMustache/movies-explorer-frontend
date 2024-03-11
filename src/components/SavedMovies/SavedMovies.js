@@ -12,6 +12,7 @@ function SavedMovies({ onDeleteMovie, onSaveMovieToServer }) {
     const [filteredMovies, setFilteredMovies] = useState(savedMovies);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const [lastSuccessfulSearch, setLastSuccessfulSearch] = useState('');
 
     const filterMovies = (term, short, movies) => {
       return movies.filter((movie) => {
@@ -36,6 +37,9 @@ function SavedMovies({ onDeleteMovie, onSaveMovieToServer }) {
         }
         setFilteredMovies(filtered);
         setIsLoading(false);
+        setLastSuccessfulSearch(search);
+
+        console.log("Отфильтрованные фильмы после поиска:", filtered);
       }, 500);
     };
 
@@ -53,7 +57,36 @@ function SavedMovies({ onDeleteMovie, onSaveMovieToServer }) {
         setFilteredMovies(filtered);
         setIsLoading(false);
       }, 500);
-    }, [searchTerm, isShort, savedMovies]);
+    }, [searchTerm, isShort]);
+
+    // const handleDeleteMovie = (movieId) => {
+    //   onDeleteMovie(movieId);
+    //   const filtered = filterMovies(lastSuccessfulSearch, isShort, savedMovies);
+    //   setFilteredMovies(filtered);
+    //   if (filtered.length === 0) {
+    //     setError("Ничего не найдено");
+    //   } else {
+    //     setError("");
+    //     handleSearch(lastSuccessfulSearch, isShort);
+    //   }
+    // };
+    const handleDeleteMovie = (movieId) => {
+      onDeleteMovie(movieId);
+      setFilteredMovies(prevMovies => {
+        const updatedMovies = prevMovies.filter(movie => movie._id !== movieId);
+        const filtered = filterMovies(lastSuccessfulSearch, isShort, updatedMovies);
+        if (filtered.length === 0) {
+          setError("Ничего не найдено");
+        } else {
+          setError("");
+        }
+        console.log("Отфильтрованные фильмы после удаления:", filtered);
+        return filtered;
+      });
+    };
+
+    console.log("Отфильтрованные фильмы после удаления:", filteredMovies);
+    console.log("Последний успешный запрос:", lastSuccessfulSearch);
   
     return (
       <main>
@@ -61,7 +94,7 @@ function SavedMovies({ onDeleteMovie, onSaveMovieToServer }) {
         {isLoading ? (
           <Preloader />
         ) : filteredMovies.length > 0 ? (
-          <MoviesCardList movies={filteredMovies} isLoading={false} onMovieDelete={onDeleteMovie} />) : (
+          <MoviesCardList movies={filteredMovies} isLoading={false} onMovieDelete={handleDeleteMovie} />) : (
             <p className="movies-not-found">Ничего не найдено</p>
         )}
       </main>

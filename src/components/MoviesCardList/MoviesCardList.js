@@ -6,25 +6,42 @@ import Preloader from "../Preloader/Preloader";
 function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer, savedMoviesList }) {
   const [displayMovies, setDisplayMovies] = useState([]);
   const [moreLoad, setMoreLoad] = useState(true);
+  // const calculateCards = () => {
+  //   const width = window.innerWidth;
+  //   let initialCount, increment;
+
+  //   if (width > 768) {
+  //     // Ширина экрана больше 768px
+  //     initialCount = 16; // 4 ряда по 4 карточки
+  //     increment = 4; // Добавляем по ряду карточек
+  //   } else if (width > 480 && width <= 768) {
+  //     // Ширина экрана от 481px до 768px
+  //     initialCount = 8; // 2 ряда по 4 карточки
+  //     increment = 2; // Добавляем по ряду карточек
+  //   } else {
+  //     // Ширина экрана до 480px
+  //     initialCount = 5; // 5 карточек по 1 в ряд
+  //     increment = 2; // Добавляем по 2 карточки
+  //   }
+  //   return { initialCount, increment };
+  // };
   const calculateCards = () => {
     const width = window.innerWidth;
     let initialCount, increment;
 
-    if (width > 768) {
-      // Ширина экрана больше 768px
-      initialCount = 16; // 4 ряда по 4 карточки
-      increment = 4; // Добавляем по ряду карточек
-    } else if (width > 480 && width <= 768) {
-      // Ширина экрана от 481px до 768px
-      initialCount = 8; // 2 ряда по 4 карточки
-      increment = 2; // Добавляем по ряду карточек
+    if (width > 1024) {
+        initialCount = 12; // 3 ряда по 4 карточки
+        increment = 3; // Добавляем 1 ряд по 4 карточки
+    } else if (width >= 768) {
+        initialCount = 8; // 2 ряда по 4 карточки
+        increment = 4; // Добавляем 1 ряд по 4 карточки
     } else {
-      // Ширина экрана до 480px
-      initialCount = 5; // 5 карточек по 1 в ряд
-      increment = 2; // Добавляем по 2 карточки
+        initialCount = 5; // 5 карточек для узких экранов
+        increment = 2; // Добавляем по 2 карточки
     }
     return { initialCount, increment };
-  };
+};
+
 
   useEffect(() => {
     const { initialCount } = calculateCards();
