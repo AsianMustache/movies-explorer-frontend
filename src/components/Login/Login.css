@@ -1,0 +1,214 @@
+.login {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 70px auto;
+    background: rgba(32, 32, 32, 1);
+    max-width: 396px;
+    width: 100%;
+}
+
+.login__logo {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    width: 38px;
+    max-width: initial;
+    height: 39px;
+}
+
+.login__welcome-message {
+    flex: 0 0 auto;
+    margin-top: 40px;
+    font: 500 24px Inter, Arial, sans-serif;
+    color: rgba(255, 255, 255, 1);
+    white-space: pre-wrap;
+}
+
+.login__form-container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin-top: 40px;
+}
+
+.login__field-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.login__field {
+    height: 68px;
+    border: none;
+    max-width: 396px;
+    width: 100%;
+}
+
+.login__label-email {
+    display: block;
+    margin-bottom: 10px;
+    font: 400 10px Inter, Arial, sans-serif;
+    color: rgba(139, 139, 139, 1);
+}
+
+.login__label-password {
+    display: block;
+    margin-bottom: 10px;
+    font: 400 10px Inter, Arial, sans-serif;
+    color: rgba(139, 139, 139, 1);
+    margin-top: 20px;
+}
+
+.login__input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 46px;
+    padding-left: 15px;
+    background: rgba(47, 47, 47, 1);
+    border: none;
+    border-radius: 8px;
+    color: white;
+}
+
+.login__action-container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 179px;
+}
+
+.login__submit-button {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    align-self: stretch;
+    width: 396px;
+    min-width: 396px;
+    height: 45px;
+    font: 400 14px Inter, Arial, sans-serif;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    background: rgba(66, 133, 244, 1);
+    border: none;
+    border-radius: 3px;
+}
+
+.login__submit-button_disabled {
+    background: #F8F8F8;
+    color: #C2C2C2;
+    cursor: not-allowed;
+}
+
+.login__registration-prompt {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-right: 55px;
+    padding-left: 56px;
+    margin-top: 16px;
+}
+
+.login__registration-message {
+    flex: 0 0 auto;
+    font: 400 14px Inter, Arial, sans-serif;
+    color: rgba(139, 139, 139, 1);
+    white-space: pre-wrap;
+}
+
+.login__registration-link {
+    flex: 0 0 auto;
+    margin-left: 6px;
+    font: 400 14px Inter, Arial, sans-serif;
+    color: rgba(66, 133, 244, 1);
+    white-space: pre-wrap;
+    text-decoration: none;
+}
+
+.login__error {
+    flex: 0 0 auto;
+    margin-top: -10px;
+    font: 400 10px Inter, Arial, sans-serif;
+    color: rgba(238, 52, 101, 1);
+    white-space: pre-wrap;
+}
+
+@media (max-width: 780px) {
+    .login {
+        margin: 232px auto 0;
+    }
+
+    .login__welcome-message {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 740px) {
+    .login {
+        margin: 56px auto 30px;
+    }
+
+    .login__logo {
+        margin: 0 auto 50px;
+    }
+
+    .login__welcome-message {
+        margin: 0 auto 80px;
+    }
+
+    .login__form-container {
+        max-width: 320px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .login__action-container {
+        margin: 0;
+    }
+
+    .login__submit-button {
+        max-width: 260px;
+        width: 100%;
+        min-width: 0;
+        margin: 267px auto 14px;
+    }
+
+    .login__field {
+        margin-bottom: 20px;
+    }
+
+    .login__field-container {
+        max-height: 156px;
+        height: 100%;
+    }
+
+    .login__input {
+        max-width: 260px;
+        width: 100%;
+        margin: 10px 30px 20px;
+    }
+
+    .login__label-email {
+        margin: 0 30px 0;
+    }
+
+    .login__label-password {
+        margin: 0 30px 0;
+    }
+
+    .login__registration-message, .login__registration-link {
+        font-size: 12px;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    
+    .login__registration-prompt {
+        margin-top: 0;
+    }
+}
