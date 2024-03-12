@@ -3,16 +3,27 @@ class MainApi {
       this._url = url;
       this._headers = headers;
     }
-  
     _sendRequest(url, options) {
-      return fetch(url, options).then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-  
-        throw new Error("Error");
-      });
+      return fetch(url, options)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+    
+          const error = new Error("Error");
+          error.status = response.status;
+          throw error;
+        })
+        .catch(error => {
+          console.error("Ошибка при выполнении запроса:", error.message);
+          if (error.status === 401) {
+            console.error("Ошибка 401: пользователь не авторизован");
+            window.location.href = '/';
+          }
+          throw error;
+        });
     }
+    
 
     setUserInfo(name, email, token) {
       return fetch(`${this._url}/users/me`, {
@@ -26,12 +37,21 @@ class MainApi {
           email: email,
         }),
       }).then((response) => {
-        if(!response.ok) {
+        if (!response.ok) {
           return response.json().then((json) => {
-            throw new Error(json.message || `Ошибка: ${response.status}`);
+            const error = new Error(json.message || `Ошибка: ${response.status}`);
+            error.status = response.status;
+            throw error;
           });
-        };
-      return response.json();
+        }
+        return response.json();
+      })
+      .catch(error => {
+        console.error("Ошибка при обновлении профиля:", error.message);
+        if (error.status === 401) {
+          window.location.href = '/';
+        }
+        throw error;
       });
     }
   
@@ -60,6 +80,16 @@ class MainApi {
           name: name,
           email: email,
         }),
+      })
+      .then(response => {
+        return response;
+      })
+      .catch(error => {
+        console.error("Ошибка при обновлении профиля:", error);
+        if (error.status === 401) {
+          window.location.href = '/';
+        }
+        throw error;
       });
     }
 
@@ -129,19 +159,24 @@ class MainApi {
         },
         body: JSON.stringify(movieData)
       })
-      .then(async response => {
-        if (!response.ok) {
-          const errorBody = await response.json();
-          console.log('Ответ сервера на ошибку:', errorBody);
-          throw new Error(`Ошибка валидации: ${errorBody.message || 'Неизвестная ошибка'}`);
-        }
-        return response.json();
-      })
-      .catch(error => {
-        console.error("Ошибка при сохранении/загрузке фильма:", error.message);
+    .then(async response => {
+      if (!response.ok) {
+        const errorBody = await response.json();
+        console.log('Ответ сервера на ошибку:', errorBody);
+        const error = new Error(`Ошибка валидации: ${errorBody.message || 'Неизвестная ошибка'}`);
+        error.status = response.status;
         throw error;
-      });
-    }
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error("Ошибка при сохранении/загрузке фильма:", error.message);
+      if (error.status === 401) {
+        window.location.href = '/';
+      }
+      throw error;
+    });
+  }
 
     dislikeMovie(movieId, token) {
       return fetch(`${this._url}/movies/${movieId}`,{
@@ -152,18 +187,24 @@ class MainApi {
           "Authorization": `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return response.json().then((json) => {
-          throw new Error(json.message || `Ошибка: ${response.status}`);
-          })
-      })
-      .catch(error => {
+    .then(async response => {
+      if (!response.ok) {
+        const errorBody = await response.json();
+        console.log('Ответ сервера на ошибку:', errorBody);
+        const error = new Error(`Ошибка валидации: ${errorBody.message || 'Неизвестная ошибка'}`);
+        error.status = response.status;
         throw error;
-      });
-    }
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error("Ошибка при сохранении/загрузке фильма:", error.message);
+      if (error.status === 401) {
+        window.location.href = '/';
+      }
+      throw error;
+    });
+  }
 
     getMovies() {
       const token = localStorage.getItem("token");

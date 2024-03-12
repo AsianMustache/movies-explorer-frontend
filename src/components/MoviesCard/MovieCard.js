@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import deleteButton from "../../images/delete.svg";
 
-function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer }) {
+function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer, handleSignOut}) {
     const location = useLocation();
     const [isSaved, setIsSaved] = useState(savedMoviesList && movie ? savedMoviesList.some(savedMovie => savedMovie.movieId === movie.id) : false);
     useEffect(() => {
@@ -17,6 +17,23 @@ function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer 
     const isSavedMoviesPage = location.pathname === "/saved-movies";
     const duration = `${Math.floor(movie.duration / 60)}ч ${movie.duration % 60}м`;
 
+    // const handleSaveOrDeleteMovie = () => {
+    //     if (!isSaved) {
+    //         onSaveMovieToServer({
+    //             ...movie,
+    //             movieId: movie.id,
+    //         }).then(() => {
+    //             setIsSaved(true);
+    //         }).catch(err => console.error("Ошибка при сохранении фильма:", err));
+    //     } else {
+    //         const movieToDelete = savedMoviesList.find(savedMovie => savedMovie.movieId === movie.id);
+    //         if (movieToDelete) {
+    //             onMovieDelete(movieToDelete._id).then(() => {
+    //                 setIsSaved(false);
+    //             }).catch(err => console.error("Ошибка при удалении фильма:", err));
+    //         }
+    //     }
+    // };
     const handleSaveOrDeleteMovie = () => {
         if (!isSaved) {
             onSaveMovieToServer({
@@ -24,13 +41,23 @@ function MovieCard({ movie, onMovieDelete, savedMoviesList, onSaveMovieToServer 
                 movieId: movie.id,
             }).then(() => {
                 setIsSaved(true);
-            }).catch(err => console.error("Ошибка при сохранении фильма:", err));
+            }).catch(err => {
+                console.error("Ошибка при сохранении фильма:", err);
+                if (err.status === 401) {
+                    handleSignOut();
+                }
+            });
         } else {
             const movieToDelete = savedMoviesList.find(savedMovie => savedMovie.movieId === movie.id);
             if (movieToDelete) {
                 onMovieDelete(movieToDelete._id).then(() => {
                     setIsSaved(false);
-                }).catch(err => console.error("Ошибка при удалении фильма:", err));
+                }).catch(err => {
+                    console.error("Ошибка при удалении фильма:", err);
+                    if (err.status === 401) {
+                        handleSignOut();
+                    }
+                });
             }
         }
     };

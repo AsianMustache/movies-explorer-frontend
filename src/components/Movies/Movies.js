@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import Preloader from "../Preloader/Preloader";
 import "../Movies/Movies.css";
 
-function Movies({ onSaveMovieToServer, onDeleteMovie, savedMoviesList }) {
+function Movies({ onSaveMovieToServer, onDeleteMovie, savedMoviesList, handleSignout }) {
     const [allMovies, setAllMovies] = useState(() => {
         const savedMovies = localStorage.getItem('allMovies');
         return savedMovies ? JSON.parse(savedMovies) : [];
@@ -132,6 +132,7 @@ function Movies({ onSaveMovieToServer, onDeleteMovie, savedMoviesList }) {
                         savedMoviesList={savedMoviesList}
                         onSaveMovieToServer={onSaveMovieToServer}
                         onMovieDelete={onDeleteMovie}
+                        handleSignout={handleSignout}
                     />}
                 </>
             )}

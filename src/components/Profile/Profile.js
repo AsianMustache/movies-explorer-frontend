@@ -30,6 +30,10 @@ function Profile({ onSignOut, onUpdateUser, setCurrentUser }) {
             .catch((err) => {
                 console.error("Ошибка при обновлении профиля:", err);
                 setSuccessMessage("Ошибка при обновлении профиля.");
+                if (err.status === 401) {
+                    console.log("Ошибка 401: пользователь не авторизован");
+                    onSignOut();
+                  }
             });
     };
 

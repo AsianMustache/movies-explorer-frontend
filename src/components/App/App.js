@@ -78,6 +78,10 @@ useEffect(() => {
       })
       .catch((error) => {
         console.error("Ошибка при регистрации:", error);
+        if (error.message.includes("401")) {
+          console.log("Ошибка 401: пользователь не авторизован");
+          handleSignOut();
+        }
       });
   };
 
@@ -94,6 +98,10 @@ useEffect(() => {
       }
     } catch (err) {
       console.log(err);
+      if (err.status === 401) {
+        console.log("Ошибка 401: пользователь не авторизован");
+        handleSignOut();
+      }
       handleSignOut();
     }
   };
@@ -115,7 +123,13 @@ useEffect(() => {
       })
       .catch((err) => {
         console.error("Ошибка:", err);
-        throw err;
+        if (err.status === 401) {
+          console.log("Ошибка 401: пользователь не авторизован");
+          handleSignOut(); // Вызываем handleSignOut только при ошибке 401
+        } else {
+          // Здесь можно добавить дополнительную логику обработки для других типов ошибок, если нужно
+        }
+        throw err; // Перебрасываем ошибку дальше, если это необходимо для дальнейшей обработки
       });
   }
 
@@ -129,7 +143,14 @@ useEffect(() => {
         setSavedNewMovies(updatedMovies);
         localStorage.setItem("savedMovies", JSON.stringify(updatedMovies));
       })
-      .catch((err) => console.error("Ошибка при сохранении фильма:", err));
+      .catch((err) => {
+        console.error("Ошибка при сохранении фильма:", err);
+        if (err.status === 401) {
+          navigate("/")
+          console.log("Ошибка 401: пользователь не авторизован");
+          handleSignOut();
+        }
+      });
     }
   };
 
@@ -141,7 +162,14 @@ useEffect(() => {
         setSavedNewMovies(updatedSavedMovies);
         localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
       })
-      .catch((error) => console.error("Ошибка при удалении фильма:", error));
+      .catch((error) => {
+        console.error("Ошибка при удалении фильма:", error);
+        if (error.status === 401) {
+          console.log("Ошибка 401: пользователь не авторизован");
+          handleSignOut();
+          navigate("/")
+        }
+      });
   };
   
 
@@ -158,6 +186,7 @@ useEffect(() => {
               onSaveMovieToServer={handleSaveMovie}
               onDeleteMovie={handleDeleteMovie}
               savedMoviesList={savedNewMovies}
+              onSignOut={handleSignOut}
               />} />
             <Route path="/saved-movies" element={<ProtectedRoute 
               component={SavedMovies} 

@@ -29,12 +29,12 @@ function MoviesCardList({ movies, isLoading, onMovieDelete, onSaveMovieToServer,
     const width = window.innerWidth;
     let initialCount, increment;
 
-    if (width > 1024) {
+    if (width > 1280) {
         initialCount = 12; // 3 ряда по 4 карточки
         increment = 3; // Добавляем 1 ряд по 4 карточки
     } else if (width >= 768) {
         initialCount = 8; // 2 ряда по 4 карточки
-        increment = 4; // Добавляем 1 ряд по 4 карточки
+        increment = 2; // Добавляем 1 ряд по 4 карточки
     } else {
         initialCount = 5; // 5 карточек для узких экранов
         increment = 2; // Добавляем по 2 карточки

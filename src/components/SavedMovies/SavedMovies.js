@@ -58,17 +58,6 @@ function SavedMovies({ onDeleteMovie, onSaveMovieToServer }) {
       }, 500);
     }, [searchTerm, isShort]);
 
-    // const handleDeleteMovie = (movieId) => {
-    //   onDeleteMovie(movieId);
-    //   const filtered = filterMovies(lastSuccessfulSearch, isShort, savedMovies);
-    //   setFilteredMovies(filtered);
-    //   if (filtered.length === 0) {
-    //     setError("Ничего не найдено");
-    //   } else {
-    //     setError("");
-    //     handleSearch(lastSuccessfulSearch, isShort);
-    //   }
-    // };
     const handleDeleteMovie = (movieId) => {
       onDeleteMovie(movieId);
       setFilteredMovies(prevMovies => {

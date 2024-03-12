@@ -94,12 +94,19 @@
     height: 100%;
     border-radius: 6px;
 }
-
-@media (max-width: 890px) {
+@media (max-width: 900px) {
     .movies-list__container {
+        max-width: 360px;
+        width: 100%;
         margin: 0 auto;
     }
 }
+
+/* @media (max-width: 890px) {
+    .movies-list__container {
+        margin: 0 auto;
+    }
+} */
 
 @media (max-width: 780px) {
     .movies-list__title-container {
